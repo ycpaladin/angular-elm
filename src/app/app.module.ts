@@ -12,6 +12,7 @@ import { reducer } from './store';
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'city' },
     { path: 'city', loadChildren: './city/city.module#CityModule' },
+    { path: 'msite', loadChildren: './orders/orders.module#OrdersModule' },
 
 ];
 

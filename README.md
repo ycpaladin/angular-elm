@@ -1,27 +1,22 @@
-# AngularEle
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.
 
-## Development server
+# 城市模块
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. 城市列表（当前用户所在城市、热门城市、城市列表）
+2. 位置(搜索，搜索结果，搜索历史，清空搜索历史)
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# 外卖
+1. 外卖（类别列表、附近商家列表）
+2. 搜索（搜索结果、搜索历史，清空搜索历史）
+3. 外卖分类（商家列表，筛选【分类、排序、自定义筛选】）
+4. 商家（商品【分类、商品列表】、评价【列表（翻页），标签】）
+5. 购物车（商品列表， 结算、地址）
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+# 我的
+1. 订单（订单列表）
+2. 订单详情（配送信息）
+3. 登录
+4. 注册
+5. 优惠（红包列表、代金券）
+6. 
