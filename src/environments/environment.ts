@@ -4,9 +4,10 @@
 
 export const environment = {
     production: false,
-    eleServerUrl: '//elm.cangdu.org',
-    imgBaseUrl: '//elm.cangdu.org/img/'
 };
+
+export const eleServerUrl = 'https://elm.cangdu.org/v1/';
+export const imgBaseUrl = 'https://elm.cangdu.org/img/';
 
 /*
  * In development mode, to ignore zone related error stack frames such as

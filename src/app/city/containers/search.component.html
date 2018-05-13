@@ -1,0 +1,22 @@
+<div class="city_container">
+  <app-header [goBack]="true" [headTitle]="historytitle | async">
+    <a [routerLink]="['/city']" class="change_city changecity">切换城市</a>
+  </app-header>
+  <form class="city_form">
+    <div>
+      <input type="search" name="city" placeholder="输入学校、商务楼、地址" class="city_input input_style" required [(ngModel)]="inputVaule">
+    </div>
+    <div>
+      <input type="submit" name="submit" class="city_submit input_style" (click)='postpois()' value="提交">
+    </div>
+  </form>
+  <header *ngIf="historytitle" class="pois_search_history">搜索历史</header>
+  <ul class="getpois_ul">
+    <li *ngFor="let item of placelist | async" [routerLink]="['/msite', item.geohash]">
+      <h4 class="pois_name ellipsis">{{item.name}}</h4>
+      <p class="pois_address ellipsis">{{item.address}}</p>
+    </li>
+  </ul>
+  <footer *ngIf="historytitle && (placelist | async)?.length" class="clear_all_history" (click)="clearAll()">清空所有</footer>
+  <div class="search_none_place" *ngIf="placeNone">很抱歉！无搜索结果</div>
+</div>

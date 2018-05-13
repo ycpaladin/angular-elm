@@ -11,9 +11,11 @@
       "schematics": {
         "@schematics/angular:component": {
           "spec": false,
+          "flat": true,
           "styleext": "scss"
         },
         "@schematics/angular:module": {
+          "flat": true,
           "spec": false
         },
         "@schematics/angular:service": {
@@ -128,5 +130,5 @@
     }
   },
   "defaultProject": "angular-ele"
-  
+
 }

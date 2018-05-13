@@ -4,6 +4,7 @@ import { SvgIconComponent } from './svg-icon/svg-icon.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import { RouterModule } from '@angular/router';
         SvgIconComponent,
         HeaderComponent,
         FooterComponent,
+        LoadingComponent,
     ],
-    exports: [SvgIconComponent, HeaderComponent, FooterComponent]
+    exports: [SvgIconComponent, HeaderComponent, FooterComponent, LoadingComponent]
 })
 export class ComponentsModule { }

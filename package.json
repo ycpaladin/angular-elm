@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4242 --open",
+    "start": "ng serve --port 4242",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -20,12 +20,12 @@
     "@angular/platform-browser": "^6.0.0",
     "@angular/platform-browser-dynamic": "^6.0.0",
     "@angular/router": "^6.0.0",
-    "@ngrx/db": "^2.1.0",
     "@ngrx/effects": "^5.2.0",
     "@ngrx/schematics": "^5.2.0",
     "@ngrx/store": "^5.2.0",
     "@ngrx/store-devtools": "^5.2.0",
     "core-js": "^2.5.4",
+    "dexie": "^2.0.3",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.1.0",
     "zone.js": "^0.8.26"

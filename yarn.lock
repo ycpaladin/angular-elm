@@ -174,10 +174,6 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ngrx/db@^2.1.0":
-  version "2.1.0"
-  resolved "http://registry.npm.taobao.org/@ngrx/db/download/@ngrx/db-2.1.0.tgz#dad736c86ea8f849a8fa0df3e506d7e7b9e2e930"
-
 "@ngrx/effects@^5.2.0":
   version "5.2.0"
   resolved "http://registry.npm.taobao.org/@ngrx/effects/download/@ngrx/effects-5.2.0.tgz#aa762b69cb6fd4644d724a1cecd265caa42baf09"
@@ -1608,6 +1604,10 @@ detect-libc@^1.0.2:
 detect-node@^2.0.3:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/detect-node/download/detect-node-2.0.3.tgz#a2033c09cc8e158d37748fbde7507832bd6ce127"
+
+dexie@^2.0.3:
+  version "2.0.3"
+  resolved "http://registry.npm.taobao.org/dexie/download/dexie-2.0.3.tgz#c32db3e8c7d43ac509379ad126f125c57a0e7c9c"
 
 di@^0.0.1:
   version "0.0.1"
