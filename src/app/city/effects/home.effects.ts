@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, forkJoin, of } from 'rxjs';
+import { Observable, forkJoin, of, defer } from 'rxjs';
 import { Action } from '@ngrx/store';
-import { map, mergeMap, switchMap, catchError } from 'rxjs/operators';
+import { map, mergeMap, switchMap, catchError, tap } from 'rxjs/operators';
 
-import * as actions from '../actions/home.actions';
+import { LoadCityDataSucess, LoadCityDataFail } from '../actions/home.actions';
 import { HomeService } from '../services/home.service';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class HomeEffects {
 
-    constructor(private $actions: Actions, private $service: HomeService) {
+  constructor(private actions$: Actions, private service$: HomeService) {
+  }
 
-    }
+  @Effect() $defer: Observable<Action> = defer(
+    () => forkJoin([this.service$.getGuessCity(), this.service$.getHotCities(), this.service$.getCityGroup()])
+      .pipe(
+        map(([guess, hot, group]) => new LoadCityDataSucess({ guess, hot, group })),
+        tap((action) => {
+          this.service$.saveToLocal(action.data.group);
+        }),
+        catchError(error => of(new LoadCityDataFail('出现错误.')))
+      )
+  );
 
-    @Effect() $loadCity: Observable<Action> = this.$actions
-        .pipe(
-            ofType(actions.HomeActions.LOAD_CITY_DATA),
-            switchMap(() =>
-                forkJoin([this.$service.getGuessCity(), this.$service.getHotCities(), this.$service.getCityGroup()])
-                    .pipe(
-                        map(([guess, hot, group]) => new actions.LoadCityDataSucess({ guess, hot, group })),
-                        catchError(error => of(new actions.LoadCityDataFail('出现错误.')))
-                    )
-            )
-        );
+
 }

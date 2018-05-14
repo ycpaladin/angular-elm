@@ -1,4 +1,4 @@
-<app-header>
+<app-header [goBack]="false">
   <span class="head_logo logo">ele.me</span>
 </app-header>
 <app-loading *ngIf="isFetching | async"></app-loading>

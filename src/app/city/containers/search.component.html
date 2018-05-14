@@ -1,13 +1,14 @@
 <div class="city_container">
-  <app-header [goBack]="true" [headTitle]="historytitle | async">
+  <app-header [goBack]="true" [headTitle]="cityname | async">
     <a [routerLink]="['/city']" class="change_city changecity">切换城市</a>
   </app-header>
   <form class="city_form">
     <div>
-      <input type="search" name="city" placeholder="输入学校、商务楼、地址" class="city_input input_style" required [(ngModel)]="inputVaule">
+      <input type="search" name="city" placeholder="输入学校、商务楼、地址" class="city_input input_style" required [(ngModel)]="inputVaule"
+        (ngModelChange)="postpois($event)">
     </div>
     <div>
-      <input type="submit" name="submit" class="city_submit input_style" (click)='postpois()' value="提交">
+      <!-- <input type="submit" name="submit" class="city_submit input_style" (click)='postpois()' value="提交"> -->
     </div>
   </form>
   <header *ngIf="historytitle" class="pois_search_history">搜索历史</header>

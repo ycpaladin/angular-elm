@@ -9,23 +9,25 @@ import { ComponentsModule } from '../components/components.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { ShopListComponent } from './components/shop-list/shop-list.component';
+import { DistancePipe } from './pipes/distance.pipe';
 
 const routes: Routes = [
-    { path: ':geohash', component: HomeComponent },
-    { path: 'search', component: SearchComponent },
-    { path: 'food', component: FoodComponent },
-    { path: 'shop', component: ShopComponent },
-    { path: 'confirmOrder', component: ConfirmOrderComponent }
+  { path: ':geohash', component: HomeComponent },
+  { path: 'search', component: SearchComponent },
+  { path: 'food', component: FoodComponent },
+  { path: 'shop', component: ShopComponent },
+  { path: 'confirmOrder', component: ConfirmOrderComponent }
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ComponentsModule,
-        FormsModule,
-        HttpClientModule,
-        RouterModule.forChild(routes)
-    ],
-    declarations: [HomeComponent, SearchComponent, FoodComponent, ShopComponent, ConfirmOrderComponent]
+  imports: [
+    CommonModule,
+    ComponentsModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forChild(routes)
+  ],
+  declarations: [HomeComponent, SearchComponent, FoodComponent, ShopComponent, ConfirmOrderComponent, ShopListComponent, DistancePipe]
 })
 export class OrdersModule { }

@@ -28,7 +28,7 @@ export class CityComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.$store.dispatch(new actions.LoadCityData());
+        // this.$store.dispatch(new actions.LoadCityData());
     }
 
 }

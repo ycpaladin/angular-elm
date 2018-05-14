@@ -5,17 +5,17 @@ import * as fromRoot from '../../store';
 import { createFeatureSelector, createSelector, ActionReducerMap } from '@ngrx/store';
 
 export interface CityState {
-    home: fromHome.State;
-    position: fromPosition.State;
+  home: fromHome.State;
+  position: fromPosition.State;
 }
 
 export interface State extends fromRoot.State {
-    city: CityState;
+  city: CityState;
 }
 
 export const reducer: ActionReducerMap<CityState> = {
-    home: fromHome.reducer,
-    position: fromPosition.reducer
+  home: fromHome.reducer,
+  position: fromPosition.reducer
 };
 
 export const getCityState = createFeatureSelector<CityState>('city');
@@ -28,7 +28,7 @@ export const getCityGroup = createSelector(city, fromHome.getCityGroup);
 
 
 export const position = createSelector(getCityState, state => state.position);
-export const getHistory = createSelector(position, fromPosition.getHistory);
 export const getPositionList = createSelector(position, fromPosition.getPositionList);
-
-// export { getIsFetching, getError, getMessage } from '../../../store';
+export const getPositionIsFeching = createSelector(position, fromPosition.getIsFetching);
+export const getPositionError = createSelector(position, fromPosition.getError);
+export const getPositionMessage = createSelector(position, fromPosition.getMessage);
