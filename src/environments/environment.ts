@@ -6,7 +6,7 @@ export const environment = {
     production: false,
 };
 
-export const eleServerUrl = 'https://elm.cangdu.org/v1/';
+export const eleServerUrl = 'https://elm.cangdu.org';
 export const imgBaseUrl = 'https://elm.cangdu.org/img/';
 
 /*

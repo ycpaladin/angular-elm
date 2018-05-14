@@ -11,15 +11,15 @@
   </a>
 </app-header>
 <nav class="msite_nav">
-  <div class="swiper-container" v-if="foodTypes.length">
+  <div class="swiper-container" #swiperContainer>
     <div class="swiper-wrapper">
       <div class="swiper-slide food_types_container" *ngFor="let item of foodTypes | async">
         <!-- <router-link :to="{path: '/food', query: {geohash, title: foodItem.title, restaurant_category_id: getCategoryId(foodItem.link)}}"
           v-for="foodItem in item" :key="foodItem.id" class="link_to_food"> -->
-        <a *ngFor="let foodItem of item" [routerLink]="['food', geohash, foodItem.title]">
+        <a [routerLink]="['food', geohash, item.title]" class="link_to_food">
           <figure>
-            <img src="{{imgBaseUrl + foodItem.image_url}}">
-            <figcaption>{{foodItem.title}}</figcaption>
+            <img src="{{imgBaseUrl + item.image_url}}">
+            <figcaption>{{item.title}}</figcaption>
           </figure>
         </a>
 
@@ -36,6 +36,6 @@
     </svg>
     <span class="shop_header_title">附近商家</span>
   </header>
-  <app-shop-list *ngIf="hasGetData" [geohash]="geohash"></app-shop-list>
+  <app-shop-list *ngIf="hasGetData" [geohash]="geohash" [shopListArr]="shopListArr | async"></app-shop-list>
 </div>
 <app-footer></app-footer>

@@ -30,6 +30,7 @@
     "lodash": "^4.17.10",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.1.0",
+    "swiper": "^4.2.6",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

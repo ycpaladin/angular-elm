@@ -13,22 +13,23 @@ import { SearchEffects } from './effects/search.effects';
 import { HomeEffects } from './effects/home.effects';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers';
+import { CityHistoryService } from '../services/city-history.service';
 
 const routes: Routes = [
-  { path: '', component: CityComponent, },
-  { path: 'search/:id', component: SearchComponent }
+    { path: '', component: CityComponent, },
+    { path: 'search/:id', component: SearchComponent }
 ];
 @NgModule({
-  imports: [
-    CommonModule,
-    ComponentsModule,
-    HttpClientModule,
-    FormsModule,
-    RouterModule.forChild(routes),
-    EffectsModule.forFeature([SearchEffects, HomeEffects]),
-    StoreModule.forFeature('city', reducer)
-  ],
-  declarations: [SearchComponent, CityComponent],
-  providers: [HomeService, SearchService]
+    imports: [
+        CommonModule,
+        ComponentsModule,
+        HttpClientModule,
+        FormsModule,
+        RouterModule.forChild(routes),
+        EffectsModule.forFeature([SearchEffects, HomeEffects]),
+        StoreModule.forFeature('city', reducer)
+    ],
+    declarations: [SearchComponent, CityComponent],
+    providers: [HomeService, SearchService, CityHistoryService]
 })
 export class CityModule { }

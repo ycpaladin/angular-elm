@@ -4,8 +4,8 @@ export interface Position {
   address: string;
   city: string;
   geohash: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   name: string;
 }
 

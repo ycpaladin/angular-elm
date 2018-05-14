@@ -23,11 +23,11 @@ export class HomeService {
   }
 
   getGuessCity(): Observable<City> {
-    return this.http.get<City>(`${eleServerUrl}/cities?type=guess`);
+    return this.http.get<City>(`${eleServerUrl}/v1/cities?type=guess`);
   }
 
   getHotCities(): Observable<City[]> {
-    return this.http.get<City[]>(`${eleServerUrl}/cities?type=hot`);
+    return this.http.get<City[]>(`${eleServerUrl}/v1/cities?type=hot`);
   }
 
   /**
@@ -38,7 +38,7 @@ export class HomeService {
       mergeMap(
         d => d !== null ?
           of(d) :
-          this.http.get<CityGroup>(`${eleServerUrl}/cities?type=group`))
+          this.http.get<CityGroup>(`${eleServerUrl}/v1/cities?type=group`))
     );
   }
 
