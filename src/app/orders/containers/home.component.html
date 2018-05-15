@@ -21,6 +21,6 @@
     </svg>
     <span class="shop_header_title">附近商家</span>
   </header>
-  <app-shop-list *ngIf="(shopListArr | async)?.length" [geohash]="geohash" [shopListArr]="shopListArr | async" [showLoading]="showLoading | async"></app-shop-list>
+  <app-shop-list *ngIf="(shopListArr | async)?.length" [geohash]="(route$.params | async)['geohash']" [shopListArr]="shopListArr | async" [showLoading]="showLoading | async"></app-shop-list>
 </div>
 <app-footer></app-footer>

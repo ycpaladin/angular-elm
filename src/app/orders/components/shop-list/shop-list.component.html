@@ -1,6 +1,6 @@
 <div class="shoplist_container">
   <ul v-load-more="loaderMore" v-if="shopListArr.length" type="1">
-    <li [routerLink]="['shop']" *ngFor="let item of shopListArr" class="shop_li">
+    <li [routerLink]="['/msite/shop', geohash, item.id]" *ngFor="let item of shopListArr" class="shop_li">
       <section>
         <img :src="{{ imgBaseUrl + item.image_path}}" class="shop_img">
       </section>

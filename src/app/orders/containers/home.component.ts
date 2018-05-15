@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   imgBaseUrl: string;
-  geohash: string;
+//   geohash: string;
   msiteTitle: Observable<string>;
   hasGetData: string;
   foodTypes: Observable<Category[][]>;

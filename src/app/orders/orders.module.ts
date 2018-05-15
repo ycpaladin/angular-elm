@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'home/:geohash', component: HomeComponent },
   { path: 'search', component: SearchComponent },
   { path: 'food', component: FoodComponent },
-  { path: 'shop', component: ShopComponent },
+  { path: 'shop/:geohash/:id', component: ShopComponent },
   { path: 'confirmOrder', component: ConfirmOrderComponent }
 ];
 
