@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { Observable, forkJoin, of } from 'rxjs';
+import { Observable, forkJoin, of, combineLatest, zip } from 'rxjs';
 import { mergeMap, map, catchError, switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { HomeActionTypes, LoadDataSucess, LoadDataFail } from '../actions/home.action';
@@ -21,14 +21,13 @@ export class PositionEffect {
 
   @Effect() defer$: Observable<Action> = this.actions$.pipe(
     ofType<LoadPosition>(PositionActionTypes.LOAD_POSITION),
-    switchMap((action) => this.service$.getPosition(action.geohash)
+    map(action => action.geohash),
+    switchMap(geohash => this.service$.getPosition(geohash)
       .pipe(
-        mergeMap(p =>
-          forkJoin([this.service$.saveToLocal(p), this.cityHistoryService$.add(p)])
-            .pipe(
-              map(() => new LoadPositionSucess(p))
-            )
-        ),
+        mergeMap(p => forkJoin([this.service$.saveToLocal(p), this.cityHistoryService$.add(p)])
+          .pipe(
+            map(([r1, r2]) => new LoadPositionSucess(p))
+          )),
         catchError(e => of(new LoadPositionFail(e)))
       ))
   );

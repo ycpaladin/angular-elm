@@ -17,22 +17,36 @@ export class CityHistoryService {
     return new Observable<CityHistory[]>(observer => {
       this.table.toArray().then((value) => {
         observer.next(value);
-
       }).catch(e => {
         observer.error(e);
-      }).finally(() => observer.complete());
+      }).finally(() => {
+        observer.complete();
+      });
       return () => { };
     });
   }
 
   add(data: CityHistory): Observable<boolean> {
+    console.log('====================>');
     return new Observable<boolean>(observer => {
-      this.table.add(<CityHistoryWithId>data).then(() => {
-        observer.next(true);
+      this.table.filter(t => t.geohash === data.geohash).first().then(t => {
+        if (!t) {
+          this.table.add(<CityHistoryWithId>data).then(() => {
+            observer.next(true);
+          });
+        } else {
+          observer.next(true);
+        }
       }).catch(e => {
+        console.log('add to cityHistory error:', e);
         observer.error(e);
-      }).finally(() => observer.complete());
-      return () => { };
+      }).finally(() => {
+        console.log('1==>1');
+        observer.complete();
+      });
+      return () => {
+
+      };
     });
   }
 
@@ -42,7 +56,9 @@ export class CityHistoryService {
         observer.next(true);
       }).catch(e => {
         observer.error(e);
-      }).finally(() => observer.complete());
+      }).finally(() => {
+        observer.complete();
+      });
       return () => { };
     });
   }

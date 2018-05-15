@@ -22,5 +22,11 @@ export function reducer(state: State = initialState, action: Actions): State {
 
 export const getPosition = (state: State) => state.position;
 
-export const getPositionName = (state: State) => state.position && state.position.name || '请选择地址...';
+export const getPositionName = (state: State): string => {
+  if (state.position) {
+    return state.position.name;
+  } else {
+    return '请选择地址...';
+  }
+};
 

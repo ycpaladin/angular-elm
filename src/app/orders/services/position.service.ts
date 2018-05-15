@@ -19,9 +19,17 @@ export class PositionService {
   }
 
   getPosition(geohash: string): Observable<Position> {
-    return this.getPositionFromLocal(geohash).pipe(
-      mergeMap(p => p !== null ? of(p) : this.getPositionFromServer(geohash))
-    );
+    return this.getPositionFromLocal(geohash)
+      .pipe(
+        mergeMap(p => {
+          // p !== null ? of(p) : this.getPositionFromServer(geohash)
+          if (p !== null) {
+            return of(p);
+          } else {
+            return this.getPositionFromServer(geohash);
+          }
+        })
+      );
   }
 
   getPositionFromServer(geohash: string): Observable<Position> {
@@ -30,36 +38,35 @@ export class PositionService {
 
 
   saveToLocal(position: Position): Observable<boolean> {
-    return new Observable(observer => {
-      try {
-        this.table.filter(t => t.geohash === position.geohash).first().then(d => {
-          if (!d) {
-            this.table.clear().then(() => {
-              this.table.add(<PositionWithId>position);
+    return new Observable<boolean>(observer => {
+      console.log(position);
+      this.table.filter(t => t.geohash === position.geohash).first().then(d => {
+        if (!d) {
+          this.table.clear().then(() => {
+            this.table.add(<PositionWithId>position).then(() => {
               observer.next(true);
             });
-          } else {
-            observer.next(true);
-          }
-        });
-      } catch (e) {
-        observer.error(e);
-      } finally {
-        observer.complete();
-      }
+          });
+        } else {
+          observer.next(true);
+        }
+      }).catch(e => observer.error(e))
+        .finally(() => observer.complete());
       return () => { };
     });
   }
 
   getPositionFromLocal(geohash: string): Observable<Position> {
-    return new Observable(observer => {
+    return new Observable<Position>(observer => {
       this.table.filter(t => t.geohash === geohash).first().then(d => {
         if (d) {
           observer.next(d);
         } else {
           observer.next(null);
         }
-      });
+      })
+        .catch(e => observer.error(e))
+        .finally(() => observer.complete());
       return () => { };
     });
   }

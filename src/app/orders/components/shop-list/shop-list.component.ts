@@ -27,8 +27,16 @@ export class ShopListComponent implements OnInit {
 
   }
 
-  zhunshi(supports: Support[]) {
-
+  zhunshi(supports: Support[]): boolean {
+    let zhunStatus = false;
+    if ((supports instanceof Array) && supports.length) {
+      supports.forEach(item => {
+        if (item.icon_name === '准') {
+          zhunStatus = true;
+        }
+      });
+    }
+    return zhunStatus;
   }
 
 }

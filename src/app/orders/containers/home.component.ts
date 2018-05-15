@@ -17,7 +17,7 @@ import { filter } from 'rxjs/operators';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
 
   imgBaseUrl: string;
@@ -34,45 +34,12 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.msiteTitle = this.store$.pipe(select(fromOrder.getPositionName));
     this.foodTypes = this.store$.pipe(select(fromOrder.getHomeCategories));
     this.shopListArr = this.store$.pipe(select(fromOrder.getHomeShopList));
-    // this.position = this.store$.pipe(select(fromOrder.getPosition));
   }
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   console.log('==>', changes);
-  // }
 
   ngOnInit() {
     this.routeSub = this.route$.params.subscribe(p => {
       this.store$.dispatch(new LoadPosition(p['geohash']));
     });
-
-    // this.foodTypes.pipe(
-    //   filter(list => list && list.length > 0)
-    // ).subscribe((list) => {
-    //   console.log(list);
-    //   if (this.swiperContainer) {
-    //     const x = new Swiper(this.swiperContainer.nativeElement, {
-    //       pagination: {
-    //         el: this.swiperPagination.nativeElement,
-    //         // dynamicBullets: true,
-    //       },
-    //       loop: true
-    //     });
-    //   }
-    // });
-
-  }
-
-  ngAfterViewInit(): void {
-    // if (this.swiperContainer) {
-    //   const x = new Swiper(this.swiperContainer.nativeElement, {
-    //     pagination: {
-    //       el: this.swiperPagination.nativeElement,
-    //       // dynamicBullets: true,
-    //     },
-    //     loop: true
-    //   });
-    // }
   }
 
   ngOnDestroy(): void {
