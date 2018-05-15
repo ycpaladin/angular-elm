@@ -55,6 +55,7 @@ export function reducer(state: State = initialState, action: Actions) {
       return Object.assign({}, state, {
         isFetching: false,
         error: false,
+        positionList: undefined,
         historyList: action.data
       });
     case SearchActionTypes.SEARCH_POSITION_FAIL:
@@ -77,8 +78,8 @@ export function reducer(state: State = initialState, action: Actions) {
 export const getIsFetching = (state: State) => state.isFetching;
 export const getError = (state: State) => state.error;
 export const getMessage = (state: State) => state.message;
-// export const getHistory = (state: State) => state.historyList;
+export const getSearchHistory = (state: State) => state.historyList;
 export const getPositionList = (state: State) =>
-  state.positionList !== undefined && state.positionList.length > 0 ? state.positionList : state.positionList;
+  state.positionList !== undefined && state.positionList.length > 0 ? state.positionList : state.historyList;
 // export { getIsFetching, getError, getMessage } from '../../../store';
 

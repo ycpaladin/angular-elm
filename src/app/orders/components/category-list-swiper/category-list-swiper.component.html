@@ -1,0 +1,16 @@
+<div class="swiper-container" #swiperContainer>
+  <div class="swiper-wrapper">
+    <div class="swiper-slide food_types_container" *ngFor="let item of foodTypes">
+      <!-- <router-link :to="{path: '/food', query: {geohash, title: foodItem.title, restaurant_category_id: getCategoryId(foodItem.link)}}"
+          v-for="foodItem in item" :key="foodItem.id" class="link_to_food"> [routerLink]="['food', geohash, item.title]" -->
+      <a class="link_to_food" *ngFor="let foodItem of item">
+        <figure>
+          <img src="{{imgBaseUrl + foodItem.image_url}}">
+          <figcaption>{{foodItem.title}}</figcaption>
+        </figure>
+      </a>
+
+    </div>
+  </div>
+  <div class="swiper-pagination" #swiperPagination></div>
+</div>

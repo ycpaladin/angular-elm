@@ -29,6 +29,6 @@ export const getHomeCategories = createSelector(homeState, fromHome.getCategorie
 export const getHomeShopList = createSelector(homeState, fromHome.getShopList);
 
 export const positionState = createSelector(getOrderState, state => state.position);
-
-
+export const getPosition = createSelector(positionState, fromPosition.getPosition);
+export const getPositionName = createSelector(positionState, fromPosition.getPositionName);
 

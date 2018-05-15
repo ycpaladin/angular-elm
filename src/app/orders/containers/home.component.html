@@ -7,27 +7,12 @@
   </a>
 
   <a [routerLink]="['/city']" class="msite_title msite-title">
-    <span class="title_text ellipsis">{{msiteTitle}}</span>
+    <span class="title_text ellipsis">{{msiteTitle | async}}</span>
   </a>
 </app-header>
 <nav class="msite_nav">
-  <div class="swiper-container" #swiperContainer>
-    <div class="swiper-wrapper">
-      <div class="swiper-slide food_types_container" *ngFor="let item of foodTypes | async">
-        <!-- <router-link :to="{path: '/food', query: {geohash, title: foodItem.title, restaurant_category_id: getCategoryId(foodItem.link)}}"
-          v-for="foodItem in item" :key="foodItem.id" class="link_to_food"> -->
-        <a [routerLink]="['food', geohash, item.title]" class="link_to_food">
-          <figure>
-            <img src="{{imgBaseUrl + item.image_url}}">
-            <figcaption>{{item.title}}</figcaption>
-          </figure>
-        </a>
-
-      </div>
-    </div>
-    <div class="swiper-pagination"></div>
-  </div>
-  <img src="../../../assets/images/fl.svg" class="fl_back animation_opactiy" v-else>
+  <app-category-list-swiper *ngIf="foodTypes | async" [foodTypes]="foodTypes | async"></app-category-list-swiper>
+  <img src="../../../assets/images/fl.svg" class="fl_back animation_opactiy" *ngIf="!(foodTypes | async)?.length">
 </nav>
 <div class="shop_list_container">
   <header class="shop_header">

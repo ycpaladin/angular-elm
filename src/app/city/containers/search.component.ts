@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { CityHistory } from '../models/city';
 import { Store, select } from '@ngrx/store';
 import * as fromCity from '../reducers';
-import { SearchPosition, ClearSearchPosition, ClearHistoryList } from '../actions/search.action';
+import { SearchPosition, ClearSearchPosition, ClearHistoryList, GetSearchHistoryList } from '../actions/search.action';
 import { ActivatedRoute } from '@angular/router';
 import { ChangeCity } from '../actions/home.actions';
 
@@ -29,6 +29,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.store$.dispatch(new GetSearchHistoryList());
     this.routeParamSub$ = this.router$.params.subscribe(p => {
       this.store$.dispatch(new ChangeCity(p['id']));
     });

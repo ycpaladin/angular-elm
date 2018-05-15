@@ -19,26 +19,29 @@ import { HomeService } from './services/home.service';
 import { PositionService } from './services/position.service';
 import { CityHistoryService } from '../services/city-history.service';
 import { PositionEffect } from './effects/position.effect';
+import { CategoryListSwiperComponent } from './components/category-list-swiper/category-list-swiper.component';
 
 const routes: Routes = [
-    { path: ':geohash', component: HomeComponent },
-    { path: 'search', component: SearchComponent },
-    { path: 'food', component: FoodComponent },
-    { path: 'shop', component: ShopComponent },
-    { path: 'confirmOrder', component: ConfirmOrderComponent }
+  { path: 'home/:geohash', component: HomeComponent },
+  { path: 'search', component: SearchComponent },
+  { path: 'food', component: FoodComponent },
+  { path: 'shop', component: ShopComponent },
+  { path: 'confirmOrder', component: ConfirmOrderComponent }
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ComponentsModule,
-        FormsModule,
-        HttpClientModule,
-        RouterModule.forChild(routes),
-        EffectsModule.forFeature([HomeEffect, PositionEffect]),
-        StoreModule.forFeature('order', reducer)
-    ],
-    declarations: [HomeComponent, SearchComponent, FoodComponent, ShopComponent, ConfirmOrderComponent, ShopListComponent, DistancePipe],
-    providers: [HomeService, PositionService, CityHistoryService]
+  imports: [
+    CommonModule,
+    ComponentsModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forChild(routes),
+    EffectsModule.forFeature([HomeEffect, PositionEffect]),
+    StoreModule.forFeature('order', reducer)
+  ],
+  declarations: [
+    HomeComponent, SearchComponent, FoodComponent, ShopComponent,
+    ConfirmOrderComponent, ShopListComponent, DistancePipe, CategoryListSwiperComponent],
+  providers: [HomeService, PositionService, CityHistoryService]
 })
 export class OrdersModule { }

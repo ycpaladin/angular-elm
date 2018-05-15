@@ -13,23 +13,25 @@ import { PositionActionTypes, LoadPosition } from '../actions/position.action';
 // import 'rxjs/add/operator/mergeMap';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class HomeEffect {
 
-    constructor(private actions$: Actions, private route$: ActivatedRoute, private service$: HomeService) {
-        // this.route$.snapshot.params.subscribe(p => console.log(p));
-        console.log(this.route$.snapshot.params);
-    }
+  constructor(private actions$: Actions, private route$: ActivatedRoute, private service$: HomeService) {
+    // this.route$.snapshot.params.subscribe(p => console.log(p));
+    console.log(this.route$.snapshot.params);
+  }
 
-    @Effect() defer$: Observable<Action> = this.actions$.pipe(
-        ofType<LoadPosition>(PositionActionTypes.LOAD_POSITION),
-        map(action => action.geohash),
-        mergeMap(geohash => forkJoin([this.service$.getCategories(geohash), this.service$.searchShop(geohash)]).pipe(
-            map(([categories, shopList]) => new LoadDataSucess(categories, shopList)),
-        )),
-        catchError(e => of(new LoadDataFail(e)))
-    );
+  @Effect() defer$: Observable<Action> = this.actions$.pipe(
+    ofType<LoadPosition>(PositionActionTypes.LOAD_POSITION),
+    map(action => action.geohash),
+    mergeMap(geohash =>
+      forkJoin([this.service$.getCategories(geohash), this.service$.searchShop(geohash)])
+        .pipe(
+          map(([categories, shopList]) => new LoadDataSucess(categories, shopList)),
+      )),
+    catchError(e => of(new LoadDataFail(e)))
+  );
 
 
 }

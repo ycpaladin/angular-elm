@@ -32,3 +32,4 @@ export const getPositionList = createSelector(search, fromSearch.getPositionList
 export const getPositionIsFeching = createSelector(search, fromSearch.getIsFetching);
 export const getPositionError = createSelector(search, fromSearch.getError);
 export const getPositionMessage = createSelector(search, fromSearch.getMessage);
+export const getSearchHistory = createSelector(search, fromSearch.getSearchHistory);

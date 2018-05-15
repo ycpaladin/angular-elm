@@ -13,7 +13,7 @@
   </form>
   <header *ngIf="historytitle" class="pois_search_history">搜索历史</header>
   <ul class="getpois_ul">
-    <li *ngFor="let item of placelist | async" [routerLink]="['/msite', item.geohash]">
+    <li *ngFor="let item of placelist | async" [routerLink]="['/msite/home', item.geohash]">
       <h4 class="pois_name ellipsis">{{item.name}}</h4>
       <p class="pois_address ellipsis">{{item.address}}</p>
     </li>
