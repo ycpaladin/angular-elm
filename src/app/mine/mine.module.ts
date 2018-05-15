@@ -18,4 +18,4 @@ import { BenefitComponent } from './containers/benefit.component';
     ],
     declarations: [LoginComponent, RegisterComponent, OrderComponent, OrderListComponent, BenefitComponent]
 })
-export class AuthModule { }
+export class MineModule { }

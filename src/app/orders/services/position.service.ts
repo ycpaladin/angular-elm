@@ -39,7 +39,6 @@ export class PositionService {
 
   saveToLocal(position: Position): Observable<boolean> {
     return new Observable<boolean>(observer => {
-      console.log(position);
       this.table.filter(t => t.geohash === position.geohash).first().then(d => {
         if (!d) {
           this.table.clear().then(() => {
@@ -50,8 +49,12 @@ export class PositionService {
         } else {
           observer.next(true);
         }
-      }).catch(e => observer.error(e))
-        .finally(() => observer.complete());
+      }).catch(e => {
+        console.error('saveToLocal position error:', e);
+        observer.error(e);
+      }).finally(() => {
+        observer.complete();
+      });
       return () => { };
     });
   }
@@ -64,9 +67,12 @@ export class PositionService {
         } else {
           observer.next(null);
         }
-      })
-        .catch(e => observer.error(e))
-        .finally(() => observer.complete());
+      }).catch(e => {
+        console.error('getPositionFromLocal position error:', e);
+        observer.error(e);
+      }).finally(() => {
+        // observer.complete();
+      });
       return () => { };
     });
   }

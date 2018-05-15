@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Shop, Support } from '../../models';
 
 import { imgBaseUrl } from '../../../../environments/environment';
@@ -8,7 +8,8 @@ import { imgBaseUrl } from '../../../../environments/environment';
   templateUrl: './shop-list.component.html',
   styleUrls: ['./shop-list.component.scss']
 })
-export class ShopListComponent implements OnInit {
+export class ShopListComponent implements OnInit, OnChanges {
+
 
   @Input() geohash: string;
   @Input() shopListArr: Shop[];
@@ -18,6 +19,10 @@ export class ShopListComponent implements OnInit {
   showBackStatus: boolean;
   constructor() {
     this.imgBaseUrl = imgBaseUrl;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
   }
 
   ngOnInit() {

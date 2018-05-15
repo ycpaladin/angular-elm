@@ -15,18 +15,20 @@ import { CityHistoryService } from '../../services/city-history.service';
 export class PositionEffect {
 
   constructor(private actions$: Actions,
-    private service$: PositionService,
+    private positionService$: PositionService,
     private cityHistoryService$: CityHistoryService) {
   }
 
   @Effect() defer$: Observable<Action> = this.actions$.pipe(
     ofType<LoadPosition>(PositionActionTypes.LOAD_POSITION),
     map(action => action.geohash),
-    switchMap(geohash => this.service$.getPosition(geohash)
+    switchMap(geohash => this.positionService$.getPositionFromServer(geohash)
       .pipe(
-        mergeMap(p => forkJoin([this.service$.saveToLocal(p), this.cityHistoryService$.add(p)])
+        mergeMap(p => this.cityHistoryService$.add(p) // this.positionService$.saveToLocal(p),
           .pipe(
-            map(([r1, r2]) => new LoadPositionSucess(p))
+            map(() => {
+              return new LoadPositionSucess(p);
+            })
           )),
         catchError(e => of(new LoadPositionFail(e)))
       ))

@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'city' },
   { path: 'city', loadChildren: './city/city.module#CityModule' },
   { path: 'msite', loadChildren: './orders/orders.module#OrdersModule' },
-
+  { path: 'my', loadChildren: './mine/mine.module#MineModule' },
 ];
 
 @NgModule({
@@ -25,7 +25,7 @@ const routes: Routes = [
     ComponentsModule,
     StoreModule.forRoot(reducer),
     EffectsModule.forRoot([]),
-    RouterModule.forRoot(routes, { useHash: true, enableTracing: true }),
+    RouterModule.forRoot(routes, { useHash: true }), // , enableTracing: true
     // StoreDevtoolsModule.instrument({ maxAge: 10 })
   ],
   providers: [],

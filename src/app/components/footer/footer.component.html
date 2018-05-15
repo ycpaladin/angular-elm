@@ -128,27 +128,27 @@
 
     </defs>
   </svg>
-  <section [routerLink]="'/msite'" class="guide_item">
+  <section [routerLink]="['/msite/home', '39.94045,116.35551']" class="guide_item">
     <svg class="icon_style">
-      <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="$route.url.indexOf('msite') !== -1? '#msiteActive' : '#msite'"></use>
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" [attr.xlink:href]="path.indexOf('msite') !== -1? '#msiteActive' : '#msite'"></use>
     </svg>
     <span>外卖</span>
   </section>
-  <section [routerLink]="'/search/geohash'" class="guide_item">
+  <section [routerLink]="['/msite/search']" class="guide_item">
     <svg class="icon_style">
-      <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="$route.url.indexOf('search') !== -1? '#findActive' : '#find'"></use>
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" [attr.xlink:href]="path.indexOf('search') !== -1? '#findActive' : '#find'"></use>
     </svg>
     <span>搜索</span>
   </section>
-  <section [routerLink]="'/order'" class="guide_item">
+  <section [routerLink]="['/my/order']" class="guide_item">
     <svg class="icon_style">
-      <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="$route.url.indexOf('order') !== -1? '#orderActive' : '#order'"></use>
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" [attr.xlink:href]="path.indexOf('order') !== -1? '#orderActive' : '#order'"></use>
     </svg>
     <span>订单</span>
   </section>
-  <section [routerLink]="'/profile'" class="guide_item">
+  <section [routerLink]="['/my/profile']" class="guide_item">
     <svg class="icon_style">
-      <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="$route.url.indexOf('profile') !== -1? '#profileActive' : '#profile'"></use>
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" [attr.xlink:href]="path.indexOf('profile') !== -1? '#profileActive' : '#profile'"></use>
     </svg>
     <span>我的</span>
   </section>

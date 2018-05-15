@@ -40,7 +40,9 @@ export function reducer(state: State = initialState, action: Actions): State {
 }
 
 
-export const getIsFetching = (state: State) => state.isFetching;
+export const getIsFetching = (state: State) => {
+  return state.isFetching;
+};
 export const getError = (state: State) => state.error;
 export const getMessage = (state: State) => state.message;
 export const getCategories = (state: State) => {
