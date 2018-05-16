@@ -8,6 +8,7 @@
 ## 技术栈
 Angular6 + @ngrx + rxjs + typescript
 模板布局、图片以及scss基本照搬原vue项目。
+另外，数据源也和原项目保持一致。
 
 ### 城市模块 city
 
