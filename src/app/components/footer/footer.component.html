@@ -130,13 +130,13 @@
   </svg>
   <section [routerLink]="['/msite/home', '39.94045,116.35551']" class="guide_item">
     <svg class="icon_style">
-      <use xmlns:xlink="http://www.w3.org/1999/xlink" [attr.xlink:href]="path.indexOf('msite') !== -1? '#msiteActive' : '#msite'"></use>
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" [attr.xlink:href]="path.indexOf('msite/home') !== -1? '#msiteActive' : '#msite'"></use>
     </svg>
     <span>外卖</span>
   </section>
   <section [routerLink]="['/msite/search']" class="guide_item">
     <svg class="icon_style">
-      <use xmlns:xlink="http://www.w3.org/1999/xlink" [attr.xlink:href]="path.indexOf('search') !== -1? '#findActive' : '#find'"></use>
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" [attr.xlink:href]="path.indexOf('msite/search') !== -1? '#findActive' : '#find'"></use>
     </svg>
     <span>搜索</span>
   </section>

@@ -20,6 +20,8 @@ import { PositionService } from './services/position.service';
 import { CityHistoryService } from '../services/city-history.service';
 import { PositionEffect } from './effects/position.effect';
 import { CategoryListSwiperComponent } from './components/category-list-swiper/category-list-swiper.component';
+import { SearchService } from './services/search.service';
+import { SearchEffect } from './effects/search.effect';
 
 const routes: Routes = [
   { path: 'home/:geohash', component: HomeComponent },
@@ -36,12 +38,12 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forChild(routes),
-    EffectsModule.forFeature([HomeEffect, PositionEffect]),
+    EffectsModule.forFeature([HomeEffect, PositionEffect, SearchEffect]),
     StoreModule.forFeature('order', reducer)
   ],
   declarations: [
     HomeComponent, SearchComponent, FoodComponent, ShopComponent,
     ConfirmOrderComponent, ShopListComponent, DistancePipe, CategoryListSwiperComponent],
-  providers: [HomeService, PositionService, CityHistoryService]
+  providers: [HomeService, PositionService, CityHistoryService, SearchService]
 })
 export class OrdersModule { }
