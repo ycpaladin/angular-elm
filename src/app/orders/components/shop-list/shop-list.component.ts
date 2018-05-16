@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Shop, Support } from '../../models';
-
+import { findIndex } from 'lodash';
 import { imgBaseUrl } from '../../../../environments/environment';
 
 @Component({
@@ -34,11 +34,12 @@ export class ShopListComponent implements OnInit, OnChanges {
   zhunshi(supports: Support[]): boolean {
     let zhunStatus = false;
     if ((supports instanceof Array) && supports.length) {
-      supports.forEach(item => {
-        if (item.icon_name === '准') {
-          zhunStatus = true;
-        }
-      });
+      // supports.forEach(item => {
+      //   if (item.icon_name === '准') {
+      //     zhunStatus = true;
+      //   }
+      // });
+      zhunStatus = findIndex(supports, t => t.icon_name === '准') !== -1;
     }
     return zhunStatus;
   }
