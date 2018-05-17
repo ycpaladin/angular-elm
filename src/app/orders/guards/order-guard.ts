@@ -32,4 +32,4 @@ export class OrderGuard implements CanActivate {
             };
         });
     }
-}
+} 
