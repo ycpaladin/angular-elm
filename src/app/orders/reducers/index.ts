@@ -3,6 +3,7 @@ import * as fromPosition from './position.reducer';
 import * as fromRoot from '../../store';
 import * as fromSearch from './search.reducer';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
+import { RouterReducerState, routerReducer } from '@ngrx/router-store';
 
 export interface OrderState {
     home: fromHome.State;

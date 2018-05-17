@@ -7,7 +7,9 @@ import { ComponentsModule } from './components/components.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { reducer } from './store';
+import { reducers, CustomSerializer } from './store';
+// import { reducers, CustomSerializer } from './store/router.reducer';
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'city' },
@@ -23,12 +25,15 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     ComponentsModule,
-    StoreModule.forRoot(reducer),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
     RouterModule.forRoot(routes, { useHash: true }), // , enableTracing: true
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router',
+    }),
     // StoreDevtoolsModule.instrument({ maxAge: 10 })
   ],
-  providers: [],
+  providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

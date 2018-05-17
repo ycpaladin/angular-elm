@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Action, Store, select } from '@ngrx/store';
 import { Observable, defer, forkJoin, of } from 'rxjs';
-import { mergeMap, withLatestFrom, map, catchError } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { mergeMap, withLatestFrom, map, catchError, tap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HomeService } from '../services/home.service';
 import { HomeActionTypes, LoadDataSucess, LoadDataFail } from '../actions/home.action';
 import { PositionActionTypes, LoadPosition } from '../actions/position.action';
-
+import * as fromRoot from '../../store';
 // import 'rxjs/add/operator/withLatestFrom';
 // import 'rxjs/add/operator/mergeMap';
 // import 'rxjs/add/operator/mergeMap';
@@ -17,12 +17,29 @@ import { PositionActionTypes, LoadPosition } from '../actions/position.action';
 })
 export class HomeEffect {
 
-  constructor(private actions$: Actions, private route$: ActivatedRoute, private service$: HomeService) {
+  // https://github.com/BioPhoton/angular-ngrx-refactoring.git
+  constructor(private actions$: Actions, private rootStore$: Store<fromRoot.State>, private service$: HomeService) {
     // this.route$.snapshot.params.subscribe(p => console.log(p));
-    console.log(this.route$.snapshot.params);
+    // console.log(this.route$);
   }
 
-  @Effect() defer$: Observable<Action> = this.actions$.pipe(
+  @Effect() defer$: Observable<Action> = defer(() => {
+    console.log('==@@=>');
+    forkJoin([
+      this.rootStore$.pipe(select(fromRoot.getRouteStateParams))
+    ]).pipe(tap((p) => {
+      console.log(p);
+    })).subscribe((d) => {
+      console.log(d);
+    });
+    // withLatestFrom(this.rootStore$.pipe(select(fromRoot.getRouteStateParams)).pipe(
+    //   tap((p) => {
+    //     console.log(p);
+    //   })
+    // ));
+  });
+
+  @Effect() loadPosition$: Observable<Action> = this.actions$.pipe(
     ofType<LoadPosition>(PositionActionTypes.LOAD_POSITION),
     map(action => action.geohash),
     mergeMap(geohash =>

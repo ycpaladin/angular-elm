@@ -6,11 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import * as fromOrder from '../reducers';
 import { LoadPosition } from '../actions/position.action';
-import Swiper from 'swiper';
-import { filter } from 'rxjs/operators';
-
-// declare const require: any;
-// const Swiper = require('swiper');
 
 @Component({
   selector: 'app-home',

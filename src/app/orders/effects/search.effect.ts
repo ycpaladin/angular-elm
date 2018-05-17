@@ -21,6 +21,10 @@ export class SearchEffect {
 
     }
 
+    @Effect() defer$: Observable<Action> = defer(() => {
+      console.log('search.effect..');
+    });
+
     @Effect() loadSearchHistory$: Observable<Action> = this.actions$.pipe(
         ofType<LoadSearchHistory>(OrderSearchActionTypes.LOAD_SEARCH_HISTORY),
         mergeMap(() =>
