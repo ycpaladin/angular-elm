@@ -43,3 +43,10 @@ export const getSearchMessage = createSelector(searchState, fromSearch.getMessag
 export const getSearchResult = createSelector(searchState, fromSearch.getSearchResult);
 export const getSearchHistory = createSelector(searchState, fromSearch.getSearchHistory);
 
+export const getRootState = (state: State) => state.router;
+export const getRouterState = createSelector(getRootState, state => {
+    console.log(state);
+    return state;
+});
+export const getRouteParams = createSelector(getRouterState, state => state.state.params);
+

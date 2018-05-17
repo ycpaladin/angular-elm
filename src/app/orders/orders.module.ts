@@ -22,28 +22,29 @@ import { PositionEffect } from './effects/position.effect';
 import { CategoryListSwiperComponent } from './components/category-list-swiper/category-list-swiper.component';
 import { SearchService } from './services/search.service';
 import { SearchEffect } from './effects/search.effect';
+import { OrderGuard } from './guards/order-guard';
 
 const routes: Routes = [
-  { path: 'home/:geohash', component: HomeComponent },
-  { path: 'search', component: SearchComponent },
-  { path: 'food', component: FoodComponent },
-  { path: 'shop/:geohash/:id', component: ShopComponent },
-  { path: 'confirmOrder', component: ConfirmOrderComponent }
+    { path: 'home/:geohash', component: HomeComponent, canActivate: [OrderGuard] },
+    { path: 'search', component: SearchComponent, canActivate: [OrderGuard] },
+    { path: 'food', component: FoodComponent, canActivate: [OrderGuard] },
+    { path: 'shop/:geohash/:id', component: ShopComponent, canActivate: [OrderGuard] },
+    { path: 'confirmOrder', component: ConfirmOrderComponent, canActivate: [OrderGuard] }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ComponentsModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule.forChild(routes),
-    EffectsModule.forFeature([HomeEffect, PositionEffect, SearchEffect]),
-    StoreModule.forFeature('order', reducer)
-  ],
-  declarations: [
-    HomeComponent, SearchComponent, FoodComponent, ShopComponent,
-    ConfirmOrderComponent, ShopListComponent, DistancePipe, CategoryListSwiperComponent],
-  providers: [HomeService, PositionService, CityHistoryService, SearchService]
+    imports: [
+        CommonModule,
+        ComponentsModule,
+        FormsModule,
+        HttpClientModule,
+        RouterModule.forChild(routes),
+        EffectsModule.forFeature([HomeEffect, PositionEffect, SearchEffect]),
+        StoreModule.forFeature('order', reducer)
+    ],
+    declarations: [
+        HomeComponent, SearchComponent, FoodComponent, ShopComponent,
+        ConfirmOrderComponent, ShopListComponent, DistancePipe, CategoryListSwiperComponent],
+    providers: [HomeService, PositionService, CityHistoryService, SearchService, OrderGuard]
 })
 export class OrdersModule { }
