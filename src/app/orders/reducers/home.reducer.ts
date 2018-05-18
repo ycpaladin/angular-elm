@@ -1,4 +1,4 @@
-import { Position, Category, Shop } from '../models';
+import { Category, Shop } from '../models';
 import { HomeActionTypes, Actions } from '../actions/home.action';
 import { chunk } from 'lodash';
 
@@ -12,14 +12,20 @@ export interface State {
 
 
 const initialState: State = {
-  isFetching: true,
+  isFetching: false,
   error: false
 };
 
 
 export function reducer(state: State = initialState, action: Actions): State {
   switch (action.type) {
-    case HomeActionTypes.LOAD_DATA_SUCESS:
+    case HomeActionTypes.LOAD_HOME_DATA:
+      return Object.assign({}, state, {
+        isFetching: true,
+        error: false,
+        message: undefined,
+      });
+    case HomeActionTypes.LOAD_HOME_DATA_SUCESS:
       const { categories, shopList } = action;
       return Object.assign({}, state, {
         isFetching: false,
@@ -28,7 +34,7 @@ export function reducer(state: State = initialState, action: Actions): State {
         categories: chunk(categories, 8),
         shopList
       });
-    case HomeActionTypes.LOAD_DATA_FAIL:
+    case HomeActionTypes.LOAD_HOME_DATA_FAIL:
       return Object.assign({}, state, {
         isFetching: false,
         error: true,

@@ -11,32 +11,35 @@ import { reducers } from './store';
 // import { reducers, CustomSerializer } from './store/router.reducer';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { CustomSerializer } from './shared/unils';
+import { CoreModule } from './core/core.module';
+import { PositionEffect } from './core/effects/position.effect';
 
 const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'city' },
-    { path: 'city', loadChildren: './city/city.module#CityModule' },
-    { path: 'msite', loadChildren: './orders/orders.module#OrdersModule' },
-    { path: 'my', loadChildren: './mine/mine.module#MineModule' },
+  { path: '', pathMatch: 'full', redirectTo: 'city' },
+  { path: 'city', loadChildren: './city/city.module#CityModule' },
+  { path: 'msite', loadChildren: './orders/orders.module#OrdersModule' },
+  { path: 'my', loadChildren: './mine/mine.module#MineModule' },
 ];
 
 @NgModule({
-    declarations: [
-        AppComponent,
-    ],
-    imports: [
-        StoreModule.forRoot(reducers),
-        EffectsModule.forRoot([]),
-        BrowserModule,
-        ComponentsModule,
-        RouterModule.forRoot(routes, { useHash: true }), // , enableTracing: true
-        StoreRouterConnectingModule.forRoot({
-            stateKey: 'router',
-        }),
-        StoreDevtoolsModule.instrument({
-            name: 'elm store'
-        })
-    ],
-    providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([PositionEffect]),
+    BrowserModule,
+    ComponentsModule,
+    CoreModule,
+    RouterModule.forRoot(routes, { useHash: true }), // , enableTracing: true
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router',
+    }),
+    StoreDevtoolsModule.instrument({
+      name: 'elm store'
+    })
+  ],
+  providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

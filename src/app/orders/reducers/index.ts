@@ -1,26 +1,25 @@
 import * as fromHome from './home.reducer';
-import * as fromPosition from './position.reducer';
 import * as fromRoot from '../../store';
 import * as fromSearch from './search.reducer';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import { RouterReducerState, routerReducer } from '@ngrx/router-store';
 
 export interface OrderState {
-    home: fromHome.State;
-    position: fromPosition.State;
-    search: fromSearch.State;
+  home: fromHome.State;
+  // position: fromPosition.State;
+  search: fromSearch.State;
 }
 
 
 export interface State extends fromRoot.State {
-    order: OrderState;
+  order: OrderState;
 }
 
 
 export const reducer: ActionReducerMap<OrderState> = {
-    home: fromHome.reducer,
-    position: fromPosition.reducer,
-    search: fromSearch.reducer,
+  home: fromHome.reducer,
+  // position: fromPosition.reducer,
+  search: fromSearch.reducer,
 };
 
 export const getOrderState = createFeatureSelector<OrderState>('order');
@@ -32,9 +31,9 @@ export const getHomeMessage = createSelector(homeState, fromHome.getMessage);
 export const getHomeCategories = createSelector(homeState, fromHome.getCategories);
 export const getHomeShopList = createSelector(homeState, fromHome.getShopList);
 
-export const positionState = createSelector(getOrderState, state => state.position);
-export const getPosition = createSelector(positionState, fromPosition.getPosition);
-export const getPositionName = createSelector(positionState, fromPosition.getPositionName);
+// export const positionState = createSelector(getOrderState, state => state.position);
+// export const getPosition = createSelector(positionState, fromPosition.getPosition);
+// export const getPositionName = createSelector(positionState, fromPosition.getPositionName);
 
 export const searchState = createSelector(getOrderState, state => state.search);
 export const getSearchFetching = createSelector(searchState, fromSearch.getIsFetching);
@@ -45,8 +44,10 @@ export const getSearchHistory = createSelector(searchState, fromSearch.getSearch
 
 export const getRootState = (state: State) => state.router;
 export const getRouterState = createSelector(getRootState, state => {
-    console.log(state);
-    return state;
+  console.log(state);
+  return state;
 });
 export const getRouteParams = createSelector(getRouterState, state => state.state.params);
+
+export { getPosition, getPositionName, getGeohash } from '../../store';
 

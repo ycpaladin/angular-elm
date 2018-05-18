@@ -33,6 +33,9 @@ export class CityHistoryService {
         if (!t) {
           this.table.add(<CityHistoryWithId>data).then(() => {
             observer.next(true);
+          }).catch(e => {
+            console.log('add to cityHistory error:', e);
+            observer.error(e);
           });
         } else {
           observer.next(true);

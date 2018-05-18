@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlatformLocation, Location } from '@angular/common';
 
@@ -10,6 +10,7 @@ import { PlatformLocation, Location } from '@angular/common';
 export class FooterComponent implements OnInit {
 
   path: string;
+  @Input() geohash: string;
   constructor(public $location: Location) {
     this.path = $location.path();
   }

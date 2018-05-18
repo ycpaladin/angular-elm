@@ -3,7 +3,6 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, Store, select } from '@ngrx/store';
 import { Observable, defer, forkJoin, of } from 'rxjs';
 import { mergeMap, withLatestFrom, map, catchError, switchMap } from 'rxjs/operators';
-import { HomeActionTypes, LoadDataSucess, LoadDataFail } from '../actions/home.action';
 import {
     OrderSearchActionTypes, LoadSearchHistory, LoadSearchHistorySucess,
     LoadSearchHistoryFail, Search, SearchSucess, SearchFail, ClearSearchHistoryFail, DeleteSearchHistory, DeleteSearchHistoryFail

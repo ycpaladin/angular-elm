@@ -1,54 +1,59 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, Store, select } from '@ngrx/store';
-import { Observable, defer, forkJoin, of } from 'rxjs';
-import { mergeMap, withLatestFrom, map, catchError, tap, filter, delay } from 'rxjs/operators';
+import { Observable, defer, forkJoin, of, combineLatest, zip } from 'rxjs';
+import { mergeMap, withLatestFrom, map, catchError, tap, filter, delay, switchMap, } from 'rxjs/operators';
 import { Router, RoutesRecognized } from '@angular/router';
 import { HomeService } from '../services/home.service';
-import { HomeActionTypes, LoadDataSucess, LoadDataFail } from '../actions/home.action';
-import { PositionActionTypes, LoadPosition } from '../actions/position.action';
+import { HomeActionTypes, LoadHomeDataSucess, LoadHomeDataFail, LoadHomeData } from '../actions/home.action';
 import * as fromRoot from '../../store';
-import { PositionService } from '../services/position.service';
 import * as fromOrder from '../reducers';
 import * as fromRoute from '@ngrx/router-store';
+import { PositionService } from '../../core/services/position.service';
+import { LoadPositionSucess, LoadPositionFail } from '../../core/actions/position.action';
+import { CityHistoryService } from '../../services/city-history.service';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class HomeEffect {
 
-    // https://github.com/BioPhoton/angular-ngrx-refactoring.git
-    constructor(
-        private actions$: Actions,
-        private router$: Router,
-        private service$: HomeService,
-        // private store$: Store<fromOrder.State>,
-        private positionService$: PositionService) {
-        // this.route$.params.subscribe(p => console.log(p));
-        // fromRoute.
-        // console.log(this.route$.events)
-    }
+  // https://github.com/BioPhoton/angular-ngrx-refactoring.git
+  constructor(
+    private actions$: Actions,
+    private service$: HomeService,
+    private position$: PositionService,
+    private cityHistory$: CityHistoryService,
+    private store$: Store<fromOrder.State>) {
+  }
+
+  @Effect() r$: Observable<Action> = this.actions$.pipe(
+    ofType(fromRoute.ROUTER_NAVIGATION),
+    map((action: any) => action.payload),
+    filter((payload: any) => payload.event.url.indexOf('/msite/home') !== -1),
+    map((payload: any) => payload.routerState),
+    switchMap(({ params }) => this.position$.getPositionFromServer(params['geohash']).pipe(
+      mergeMap(position => combineLatest([this.position$.saveToLocal(position), this.cityHistory$.add(position)]).pipe(
+        map(([r1, r2]) => new LoadPositionSucess(position))
+      )),
+      catchError(e => {
+        console.error(e);
+        return of(new LoadPositionFail(e));
+      })
+    ))
+  );
 
 
-    @Effect({ dispatch: false }) nav$ = this.actions$.pipe(
-        ofType(fromRoute.ROUTER_NAVIGATION),
-        map((action: any) => (<RoutesRecognized>action.payload.event).state),
-        tap((action) => {
-            console.log('====================>@s', action);
-        })
-    );
-
-
-    @Effect() loadPosition$: Observable<Action> = this.actions$.pipe(
-        ofType<LoadPosition>(PositionActionTypes.LOAD_POSITION),
-        map(action => action.geohash),
-        mergeMap(geohash =>
-            forkJoin([this.service$.getCategories(geohash), this.service$.searchShop(geohash)])
-                .pipe(
-                    map(([categories, shopList]) => new LoadDataSucess(categories, shopList)),
-            )),
-        catchError(e => of(new LoadDataFail(e)))
-    );
+  @Effect() loadPosition$: Observable<Action> = this.actions$.pipe(
+    ofType<LoadHomeData>(HomeActionTypes.LOAD_HOME_DATA),
+    // withLatestFrom(this.store$.pipe(select(fromOrder.getGeohash))),
+    map(action => action.geohash), // 在这里要从路由中get，不能从store中get, 可能不一致
+    mergeMap((geohash) => forkJoin([this.service$.getCategories(geohash), this.service$.searchShop(geohash)])
+      .pipe(
+        map(([categories, shopList]) => new LoadHomeDataSucess(categories, shopList)),
+    )),
+    catchError(e => of(new LoadHomeDataFail(e)))
+  );
 
 
 }

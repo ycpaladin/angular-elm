@@ -23,4 +23,4 @@
   </header>
   <app-shop-list *ngIf="(shopListArr | async)?.length" [geohash]="(route$.params | async)['geohash']" [shopListArr]="shopListArr | async" [showLoading]="showLoading | async"></app-shop-list>
 </div>
-<app-footer></app-footer>
+<app-footer [geohash]="geohash | async"></app-footer>
