@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.msiteTitle = this.store$.pipe(select(fromOrder.getPositionName));
     this.foodTypes = this.store$.pipe(select(fromOrder.getHomeCategories));
     this.shopListArr = this.store$.pipe(select(fromOrder.getHomeShopList));
-    this.showLoading = this.store$.pipe(select(fromOrder.getHomeFetching));
+    this.showLoading = this.store$.pipe(select(fromOrder.getFetching));
     this.geohash = this.store$.pipe(select(fromOrder.getGeohash));
   }
 

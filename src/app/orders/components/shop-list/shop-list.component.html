@@ -1,5 +1,5 @@
 <div class="shoplist_container">
-  <ul v-load-more="loaderMore" v-if="shopListArr.length" type="1">
+  <ul *ngIf="shopListArr?.length">
     <li [routerLink]="['/msite/shop', geohash, item.id]" *ngFor="let item of shopListArr" class="shop_li">
       <section>
         <img :src="{{ imgBaseUrl + item.image_path}}" class="shop_img">
@@ -43,8 +43,8 @@
       </div>
     </li>
   </ul>
-  <ul v-else class="animation_opactiy">
-    <li class="list_back_li" v-for="item in 10" :key="item">
+  <ul class="animation_opactiy" *ngIf="!shopListArr?.length">
+    <li class="list_back_li" *ngFor="let item of [0,1,2,3,4,5,6,7,8,9]">
       <img src="../../../../assets/images/shopback.svg" class="list_back_svg">
     </li>
   </ul>
@@ -54,9 +54,6 @@
       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#backtop"></use>
     </svg>
   </aside>
-  <div ref="abc" style="background-color: red;"></div>
-  <!-- <transition name="loading">
-    
-  </transition> -->
+  <!-- <div style="background-color: red;"></div> -->
   <app-loading *ngIf="showLoading"></app-loading>
 </div>

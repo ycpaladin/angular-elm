@@ -9,7 +9,7 @@ import { ComponentsModule } from '../components/components.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { ShopListComponent } from './components/shop-list/shop-list.component';
+
 import { DistancePipe } from './pipes/distance.pipe';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers';
@@ -17,10 +17,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { HomeEffect } from './effects/home.effect';
 import { HomeService } from './services/home.service';
 import { CityHistoryService } from '../services/city-history.service';
-import { CategoryListSwiperComponent } from './components/category-list-swiper/category-list-swiper.component';
 import { SearchService } from './services/search.service';
 import { SearchEffect } from './effects/search.effect';
 import { PositionService } from '../core/services/position.service';
+import { ShopService } from './services/shop.service';
+import { CategoryListSwiperComponent } from './components/category-list-swiper/category-list-swiper.component';
+import { ShopDetailHeaderComponent } from './components/shop-detail-header/shop-detail-header.component';
+import { ShopListComponent } from './components/shop-list/shop-list.component';
 
 const routes: Routes = [
   { path: 'home/:geohash', component: HomeComponent },
@@ -42,7 +45,7 @@ const routes: Routes = [
   ],
   declarations: [
     HomeComponent, SearchComponent, FoodComponent, ShopComponent,
-    ConfirmOrderComponent, ShopListComponent, DistancePipe, CategoryListSwiperComponent],
-  providers: [HomeService, PositionService, CityHistoryService, SearchService]
+    ConfirmOrderComponent, ShopListComponent, DistancePipe, CategoryListSwiperComponent, ShopDetailHeaderComponent],
+  providers: [HomeService, PositionService, CityHistoryService, SearchService, ShopService]
 })
 export class OrdersModule { }
