@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ShopCategory, ShopRating, ShopScore, ShopTag, ShowDetials } from '../models';
+import { ShopCategory, ShopRating, ShopScore, ShopTag, ShopDetials } from '../models';
 
 export enum ShopActionTypes {
   LOAD_SHOP_DATA = '[Shop] LOAD_SHOP_DATA',
@@ -32,7 +32,7 @@ export class LoadShopData implements Action {
 
 export class LoadShopDataSucess implements Action {
   readonly type = ShopActionTypes.LOAD_SHOP_DATA_SUCESS;
-  constructor(public data: { categories: ShopCategory[], detials: ShowDetials }) { }
+  constructor(public data: { categories: ShopCategory[], detials: ShopDetials }) { }
 }
 
 export class LoadShopDataFail implements Action {

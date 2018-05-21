@@ -288,7 +288,7 @@ export interface DeliveryMode {
   text: string;
 }
 
-export interface ShowDetials {
+export interface ShopDetials {
   name: string;
   address: string;
   id: number;

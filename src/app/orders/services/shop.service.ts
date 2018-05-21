@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ShopCategory, ShopRating, ShopTag, ShopScore, ShowDetials } from '../models';
+import { ShopCategory, ShopRating, ShopTag, ShopScore, ShopDetials } from '../models';
 import { eleServerUrl } from '../../../environments/environment';
 
 @Injectable({
@@ -12,10 +12,10 @@ export class ShopService {
   constructor(private http$: HttpClient) { }
 
   getShopDetails(restaurant_id: string, latitude: string, longitude: string,
-    extras: string[] = ['activities', 'album', 'license', 'identification', 'statistics']): Observable<ShowDetials> {
+    extras: string[] = ['activities', 'album', 'license', 'identification', 'statistics']): Observable<ShopDetials> {
     // https://elm.cangdu.org/shopping/restaurant/1
     // ?latitude=45.7814&longitude=126.70353&extras[]=activities&extras[]=album&extras[]=license&extras[]=identification&extras[]=statistics
-    return this.http$.get<ShowDetials>(`${eleServerUrl}/shopping/restaurant/${restaurant_id}`, {
+    return this.http$.get<ShopDetials>(`${eleServerUrl}/shopping/restaurant/${restaurant_id}`, {
       params: {
         latitude,
         longitude,

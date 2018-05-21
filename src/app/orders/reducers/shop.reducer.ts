@@ -1,4 +1,4 @@
-import { ShopCategory, ShopRating, ShopTag, ShopScore, ShowDetials } from '../models';
+import { ShopCategory, ShopRating, ShopTag, ShopScore, ShopDetials } from '../models';
 import { ShopActionTypes, Actions } from '../actions/shop.action';
 
 export interface State {
@@ -9,7 +9,7 @@ export interface State {
 }
 
 export interface Restaurant {
-  detials?: ShowDetials;
+  detials?: ShopDetials;
   categories?: ShopCategory[];
   ratings?: ShopRating[];
   tags?: ShopTag[];

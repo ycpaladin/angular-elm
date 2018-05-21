@@ -1,0 +1,60 @@
+<section class="rating_container" id="ratingContainer">
+  <section>
+    <section>
+      <header class="rating_header">
+        <section class="rating_header_left">
+          <p>{{shopDetailData.rating}}</p>
+          <p>综合评价</p>
+          <p>高于周边商家{{(ratingScoresData.compare_rating*100).toFixed(1)}}%</p>
+        </section>
+        <section class="rating_header_right">
+          <p>
+            <span>服务态度</span>
+            <app-rating-star [rating]="ratingScoresData.service_score"></app-rating-star>
+            <span class="rating_num">{{ratingScoresData.service_score.toFixed(1)}}</span>
+          </p>
+          <p>
+            <span>菜品评价</span>
+            <app-rating-star [rating]="ratingScoresData.food_score"></app-rating-star>
+            <span class="rating_num">{{ratingScoresData.food_score.toFixed(1)}}</span>
+          </p>
+          <p>
+            <span>送达时间</span>
+            <span class="delivery_time">{{shopDetailData.order_lead_time}}分钟</span>
+          </p>
+        </section>
+      </header>
+      <ul class="tag_list_ul">
+        <li *ngFor="let item of ratingTagsList; let index = index;" [class.unsatisfied]="item.unsatisfied" [class.tagActivity]="ratingTageIndex === index"
+          (click)="changeTgeIndex(index, item.name)">{{item.name}}({{item.count}})</li>
+      </ul>
+      <ul class="rating_list_ul">
+        <li *ngFor="let item of ratingList" class="rating_list_li">
+          <img [attr.src]="getImgPath(item.avatar)" class="user_avatar">
+          <section class="rating_list_details">
+            <header>
+              <section class="username_star">
+                <p class="username">{{item.username}}</p>
+                <p class="star_desc">
+                  <app-rating-star [rating]='item.rating_star'></app-rating-star>
+                  <span class="time_spent_desc">{{item.time_spent_desc}}</span>
+                </p>
+              </section>
+              <time class="rated_at">{{item.rated_at}}</time>
+            </header>
+            <ul class="food_img_ul">
+              <li *ngFor="let item$ of item.item_ratings">
+                <img [attr.src]="getImgPath(item$.image_hash)" *ngIf="item$.image_hash">
+              </li>
+            </ul>
+            <ul class="food_name_ul">
+              <li *ngFor="let item$ of item.item_ratings" class="ellipsis">
+                {{item$.food_name}}
+              </li>
+            </ul>
+          </section>
+        </li>
+      </ul>
+    </section>
+  </section>
+</section>

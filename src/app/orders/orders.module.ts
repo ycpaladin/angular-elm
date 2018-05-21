@@ -22,30 +22,33 @@ import { SearchEffect } from './effects/search.effect';
 import { PositionService } from '../core/services/position.service';
 import { ShopService } from './services/shop.service';
 import { CategoryListSwiperComponent } from './components/category-list-swiper/category-list-swiper.component';
-import { ShopDetailHeaderComponent } from './components/shop-detail-header/shop-detail-header.component';
 import { ShopListComponent } from './components/shop-list/shop-list.component';
+import { ShopRatingComponent } from './components/shop-rating/shop-rating.component';
+import { ShopFoodComponent } from './components/shop-food/shop-food.component';
+import { ShopBuyCarComponent } from './components/shop-buy-car/shop-buy-car.component';
 
 const routes: Routes = [
-  { path: 'home/:geohash', component: HomeComponent },
-  { path: 'search', component: SearchComponent },
-  { path: 'food', component: FoodComponent },
-  { path: 'shop/:geohash/:id', component: ShopComponent },
-  { path: 'confirmOrder', component: ConfirmOrderComponent }
+    { path: 'home/:geohash', component: HomeComponent },
+    { path: 'search', component: SearchComponent },
+    { path: 'food', component: FoodComponent },
+    { path: 'shop/:geohash/:id', component: ShopComponent },
+    { path: 'confirmOrder', component: ConfirmOrderComponent }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ComponentsModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule.forChild(routes),
-    EffectsModule.forFeature([HomeEffect, SearchEffect]),
-    StoreModule.forFeature('order', reducer)
-  ],
-  declarations: [
-    HomeComponent, SearchComponent, FoodComponent, ShopComponent,
-    ConfirmOrderComponent, ShopListComponent, DistancePipe, CategoryListSwiperComponent, ShopDetailHeaderComponent],
-  providers: [HomeService, PositionService, CityHistoryService, SearchService, ShopService]
+    imports: [
+        CommonModule,
+        ComponentsModule,
+        FormsModule,
+        HttpClientModule,
+        RouterModule.forChild(routes),
+        EffectsModule.forFeature([HomeEffect, SearchEffect]),
+        StoreModule.forFeature('order', reducer)
+    ],
+    declarations: [
+        HomeComponent, SearchComponent, FoodComponent, ShopComponent,
+        ConfirmOrderComponent, ShopListComponent, DistancePipe, CategoryListSwiperComponent,
+        ShopRatingComponent, ShopFoodComponent, ShopBuyCarComponent],
+    providers: [HomeService, PositionService, CityHistoryService, SearchService, ShopService]
 })
 export class OrdersModule { }
