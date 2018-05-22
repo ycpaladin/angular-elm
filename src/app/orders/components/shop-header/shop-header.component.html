@@ -1,0 +1,29 @@
+<header class="shop_detail_header" ref="shopheader" [style.zIndex]="showActivities? '14':'10'">
+  <img [attr.src]="imgBaseUrl + shopDetailData?.image_path" class="header_cover_img">
+  <section class="description_header">
+    <a [routerLink]="['/shop/shopDetail']" class="description_top">
+      <section class="description_left">
+        <img [attr.src]="imgBaseUrl + shopDetailData?.image_path">
+      </section>
+      <section class="description_right">
+        <h4 class="description_title ellipsis">{{shopDetailData?.name}}</h4>
+        <p class="description_text">商家配送／{{shopDetailData?.order_lead_time}}分钟送达／配送费¥{{shopDetailData?.float_delivery_fee}}</p>
+        <p class="description_promotion ellipsis">公告：{{promotionInfo}}</p>
+      </section>
+      <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg" version="1.1" class="description_arrow">
+        <path d="M0 0 L8 7 L0 14" stroke="#fff" stroke-width="1" fill="none" />
+      </svg>
+    </a>
+    <footer class="description_footer" *ngIf="shopDetailData?.activities.length" (click)="showActivitiesFun()">
+      <p class="ellipsis">
+        <span class="tip_icon" [style.backgroundColor]="'#' + shopDetailData?.activities[0].icon_color" [style.borderColor]="'#' + shopDetailData?.activities[0].icon_color">{{shopDetailData?.activities[0].icon_name}}</span>
+        <span>{{shopDetailData?.activities[0].description}}（APP专享）</span>
+      </p>
+      <p>{{shopDetailData?.activities.length}}个活动</p>
+      <svg class="footer_arrow">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-left"></use>
+      </svg>
+    </footer>
+
+  </section>
+</header>

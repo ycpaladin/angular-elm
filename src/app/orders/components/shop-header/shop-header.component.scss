@@ -1,0 +1,81 @@
+@import '../../../../assets/mixin.scss';
+
+.shop_detail_header {
+  overflow: hidden;
+  position: relative;
+  .header_cover_img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    filter: blur(10px);
+  }
+  .description_header {
+    position: relative;
+    z-index: 10;
+    background-color: rgba(119, 103, 137, .43);
+    padding: 0.4rem 0 0.4rem 0.4rem;
+    width: 100%;
+    overflow: hidden;
+    .description_top {
+      display: flex;
+      .description_left {
+        margin-right: 0.3rem;
+        img {
+          @include wh(2.9rem, 2.9rem);
+          display: block;
+          border-radius: 0.15rem;
+        }
+      }
+      .description_right {
+        flex: 1;
+        .description_title {
+          @include sc(.8rem, #fff);
+          font-weight: bold;
+          width: 100%;
+          margin-bottom: 0.3rem;
+        }
+        .description_text {
+          @include sc(.5rem, #fff);
+          margin-bottom: 0.3rem;
+        }
+        .description_promotion {
+          @include sc(.5rem, #fff);
+          width: 11.5rem;
+        }
+      }
+      .description_arrow {
+        @include ct;
+        right: 0.3rem;
+        z-index: 11;
+      }
+    }
+    .description_footer {
+      @include fj;
+      margin-top: 0.5rem;
+      padding-right: 1rem;
+      p {
+        @include sc(.5rem, #fff);
+        span {
+          color: #fff;
+        }
+        .tip_icon {
+          padding: 0 .04rem;
+          border: 0.025rem solid #fff;
+          border-radius: 0.1rem;
+          font-size: .4rem;
+          display: inline-block;
+        }
+      }
+      .ellipsis {
+        width: 84%;
+      }
+      .footer_arrow {
+        @include wh(.45rem, .45rem);
+        position: absolute;
+        right: .3rem;
+      }
+    }
+  }
+}

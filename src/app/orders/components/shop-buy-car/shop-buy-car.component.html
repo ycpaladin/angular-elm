@@ -1,3 +1,56 @@
-<p>
-  shop-buy-car works!
-</p>
+<section class="buy_cart_container">
+  <section (click)="toggleCartList()" class="cart_icon_num">
+    <div class="cart_icon_container" [class.cart_icon_activity]="totalPrice > 0" [class.move_in_cart]="receiveInCart" ref="cartContainer">
+      <span *ngIf="totalNum" class="cart_list_length">
+        {{totalNum}}
+      </span>
+      <svg class="cart_icon">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-icon"></use>
+      </svg>
+    </div>
+    <div class="cart_num">
+      <div>¥ {{totalPrice}}</div>
+      <div>配送费¥{{deliveryFee}}</div>
+    </div>
+  </section>
+  <section class="gotopay" [class.gotopay_acitvity]="minimumOrderAmount <= 0">
+    <span class="gotopay_button_style" *ngIf="minimumOrderAmount > 0">还差¥{{minimumOrderAmount}}起送</span>
+    <a [routerLink]="['/confirmOrder']" class="gotopay_button_style" v-else>去结算</a>
+  </section>
+</section>
+<section class="cart_food_list" *ngIf="showCartList&&cartFoodList.length">
+  <header>
+    <h4>购物车</h4>
+    <div (click)="_clearCart()">
+      <svg>
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-remove"></use>
+      </svg>
+      <span class="clear_cart">清空</span>
+    </div>
+  </header>
+  <section class="cart_food_details" id="cartFood">
+    <ul>
+      <li *ngFor="let item of cartFoodList" class="cart_food_li">
+        <div class="cart_list_num">
+          <p class="ellipsis">{{item.name}}</p>
+          <p class="ellipsis">{{item.specs}}</p>
+        </div>
+        <div class="cart_list_price">
+          <span>¥</span>
+          <span>{{item.price}}</span>
+        </div>
+        <section class="cart_list_control">
+          <span (click)="removeOutCart(item.category_id, item.item_id, item.food_id, item.name, item.price, item.specs)">
+            <svg>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-minus"></use>
+            </svg>
+          </span>
+          <span class="cart_num">{{item.num}}</span>
+          <svg class="cart_add" (click)="addToCart(item.category_id, item.item_id, item.food_id, item.name, item.price, item.specs)">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-add"></use>
+          </svg>
+        </section>
+      </li>
+    </ul>
+  </section>
+</section>

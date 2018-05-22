@@ -1,17 +1,18 @@
 <section class="food_container">
   <section class="menu_container">
-    <section class="menu_left" id="wrapper_menu" ref="wrapperMenu">
+    <section class="menu_left" #wrapperMenu>
       <ul>
         <li *ngFor="let item of menuList; let index = index" class="menu_left_li" [class.activity_menu]="index === menuIndex" (click)="chooseMenu(index)">
           <img [attr.src]="getImgPath(item.icon_url)" *ngIf="item.icon_url">
           <span>{{item.name}}</span>
-          <span class="category_num" v-if="categoryNum[index]&&item.type==1">{{categoryNum[index]}}</span>
+          <span class="category_num" *ngIf="categoryNum&&categoryNum[index]&&item.type==1">{{categoryNum[index]}}</span>
         </li>
       </ul>
     </section>
-    <section class="menu_right" ref="menuFoodList">
+    <section class="menu_right" #menuFoodList>
       <ul>
-        <li *ngFor="let item of menuList; let index = index">
+        <li *ngFor="let item of menuList; let index = index; let last = last">
+          {{ngForCallback(index,last,item)}}
           <header class="menu_detail_header">
             <section class="menu_detail_header_left">
               <strong class="menu_item_title">{{item.name}}</strong>
@@ -23,7 +24,7 @@
               {{item.description}}
             </p>
           </header>
-          <section *ngFor="let foods of item.foods" class="menu_detail_list">
+          <!-- <section *ngFor="let foods of item.foods" class="menu_detail_list">
             <div [routerLink]="['/']" class="menu_detail_link">
               <section class="menu_food_img">
                 <img [attr.src]="imgBaseUrl + foods.image_path">
@@ -45,80 +46,25 @@
                   <span>好评率{{foods.satisfy_rate}}%</span>
                 </p>
                 <p v-if="foods.activity" class="food_activity">
-                  <span [style.color]="'#' + foods.activity.image_text_color" [style.borderColor]="'#' +foods.activity.icon_color">{{foods.activity.image_text}}</span>
+                  <span [style.color]="'#' + foods.activity?.image_text_color" [style.borderColor]="'#' +foods.activity?.icon_color">{{foods.activity?.image_text}}</span>
                 </p>
               </section>
             </div>
-            <!-- </router-link> -->
             <footer class="menu_detail_footer">
               <section class="food_price">
                 <span>¥</span>
                 <span>{{foods.specfoods[0].price}}</span>
                 <span *ngIf="foods.specifications.length">起</span>
               </section>
-              <!-- <buy-cart :shopId='shopId' :foods='foods' @moveInCart="listenInCart" @showChooseList="showChooseList" @showReduceTip="showReduceTip"
-                    @showMoveDot="showMoveDotFun"></buy-cart> -->
+               <buy-cart :shopId='shopId' :foods='foods' @moveInCart="listenInCart" @showChooseList="showChooseList" @showReduceTip="showReduceTip"
+                    @showMoveDot="showMoveDotFun"></buy-cart> 
             </footer>
-          </section>
+          </section> -->
+
         </li>
       </ul>
     </section>
   </section>
-  <section class="buy_cart_container">
-    <section (click)="toggleCartList()" class="cart_icon_num">
-      <div class="cart_icon_container" :class="{cart_icon_activity: totalPrice > 0, move_in_cart:receiveInCart}" ref="cartContainer">
-        <span *ngIf="totalNum" class="cart_list_length">
-          {{totalNum}}
-        </span>
-        <svg class="cart_icon">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-icon"></use>
-        </svg>
-      </div>
-      <div class="cart_num">
-        <div>¥ {{totalPrice}}</div>
-        <div>配送费¥{{deliveryFee}}</div>
-      </div>
-    </section>
-    <section class="gotopay" :class="{gotopay_acitvity: minimumOrderAmount <= 0}">
-      <span class="gotopay_button_style" v-if="minimumOrderAmount > 0">还差¥{{minimumOrderAmount}}起送</span>
-      <a [routerLink]="['/confirmOrder']" class="gotopay_button_style" v-else>去结算</a>
-    </section>
-  </section>
-  <section class="cart_food_list" v-show="showCartList&&cartFoodList.length">
-    <header>
-      <h4>购物车</h4>
-      <div (click)="clearCart()">
-        <svg>
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-remove"></use>
-        </svg>
-        <span class="clear_cart">清空</span>
-      </div>
-    </header>
-    <section class="cart_food_details" id="cartFood">
-      <ul>
-        <li *ngFor="let item of cartFoodList" class="cart_food_li">
-          <div class="cart_list_num">
-            <p class="ellipsis">{{item.name}}</p>
-            <p class="ellipsis">{{item.specs}}</p>
-          </div>
-          <div class="cart_list_price">
-            <span>¥</span>
-            <span>{{item.price}}</span>
-          </div>
-          <section class="cart_list_control">
-            <span (click)="removeOutCart(item.category_id, item.item_id, item.food_id, item.name, item.price, item.specs)">
-              <svg>
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-minus"></use>
-              </svg>
-            </span>
-            <span class="cart_num">{{item.num}}</span>
-            <svg class="cart_add" (click)="addToCart(item.category_id, item.item_id, item.food_id, item.name, item.price, item.specs)">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-add"></use>
-            </svg>
-          </section>
-        </li>
-      </ul>
-    </section>
-  </section>
-  <div class="screen_cover" v-show="showCartList&&cartFoodList.length" (click)="toggleCartList()"></div>
+  <app-shop-buy-car></app-shop-buy-car>
+  <!-- <div class="screen_cover" v-show="showCartList&&cartFoodList.length" (click)="toggleCartList()"></div> -->
 </section>

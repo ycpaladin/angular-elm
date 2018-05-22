@@ -25,6 +25,7 @@
     "@ngrx/schematics": "^5.2.0",
     "@ngrx/store": "^5.2.0",
     "@ngrx/store-devtools": "^5.2.0",
+    "better-scroll": "^1.11.1",
     "core-js": "^2.5.4",
     "dexie": "^2.0.3",
     "lodash": "^4.17.10",

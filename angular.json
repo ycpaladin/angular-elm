@@ -38,7 +38,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+                "./node_modules/better-scroll/dist/bscroll.min.js"
+            ]
           },
           "configurations": {
             "production": {

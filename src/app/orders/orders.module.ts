@@ -26,6 +26,8 @@ import { ShopListComponent } from './components/shop-list/shop-list.component';
 import { ShopRatingComponent } from './components/shop-rating/shop-rating.component';
 import { ShopFoodComponent } from './components/shop-food/shop-food.component';
 import { ShopBuyCarComponent } from './components/shop-buy-car/shop-buy-car.component';
+import { ShopHeaderComponent } from './components/shop-header/shop-header.component';
+import { ShopEffect } from './effects/shop.effect';
 
 const routes: Routes = [
     { path: 'home/:geohash', component: HomeComponent },
@@ -42,13 +44,13 @@ const routes: Routes = [
         FormsModule,
         HttpClientModule,
         RouterModule.forChild(routes),
-        EffectsModule.forFeature([HomeEffect, SearchEffect]),
+        EffectsModule.forFeature([HomeEffect, SearchEffect, ShopEffect]),
         StoreModule.forFeature('order', reducer)
     ],
     declarations: [
         HomeComponent, SearchComponent, FoodComponent, ShopComponent,
         ConfirmOrderComponent, ShopListComponent, DistancePipe, CategoryListSwiperComponent,
-        ShopRatingComponent, ShopFoodComponent, ShopBuyCarComponent],
+        ShopRatingComponent, ShopFoodComponent, ShopBuyCarComponent, ShopHeaderComponent],
     providers: [HomeService, PositionService, CityHistoryService, SearchService, ShopService]
 })
 export class OrdersModule { }

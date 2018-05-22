@@ -49,12 +49,12 @@ export const getMessage = createSelector(statuState, fromStatus.getMessage);
 
 export const shopState = createSelector(getOrderState, state => state.shop);
 export const getShop = createSelector(shopState, fromShop.getCurrentRestaurant);
-export const getShopCategories = createSelector(getShop, t => t.categories);
-export const getShopRatings = createSelector(getShop, t => t.ratings);
-export const getShopScores = createSelector(getShop, t => t.scores);
-export const getShopTags = createSelector(getShop, t => t.tags);
 export const getShopId = createSelector(shopState, fromShop.getRestaurantId);
-export const getShopDetials = createSelector(getShop, t => t.detials);
+export const getShopCategories = createSelector(shopState, fromShop.getCategories);
+export const getShopRatings = createSelector(shopState, fromShop.getRatings);
+export const getShopScores = createSelector(shopState,  fromShop.getScores);
+export const getShopTags = createSelector(shopState,  fromShop.getTags);
+export const getShopDetials = createSelector(shopState, fromShop.getDetials);
 
 export { getPosition, getPositionName, getGeohash } from '../../store';
 

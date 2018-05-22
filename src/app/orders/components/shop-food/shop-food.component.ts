@@ -1,18 +1,25 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { ShopDetials, ShopCategory } from '../../models';
 import { imgBaseUrl } from '../../../../environments/environment';
+import 'better-scroll';
+declare let BScroll: BScrollStatic;
 
 @Component({
     selector: 'app-shop-food',
     templateUrl: './shop-food.component.html',
     styleUrls: ['./shop-food.component.scss']
 })
-export class ShopFoodComponent implements OnInit {
+export class ShopFoodComponent implements OnInit, OnChanges {
 
+
+    @ViewChild('wrapperMenu') wrapperMenu: ElementRef;
+    @ViewChild('menuFoodList') menuFoodList: ElementRef;
     @Input() menuList: ShopCategory[];
     @Input() shopCart: any;
+
+    i = 0;
     categoryNum: any[];
-    menuIndex: number;
+    menuIndex = 0;
     cartFoodList: any[];
     totalPrice: number;
     titleDetailIndex: number;
@@ -20,10 +27,71 @@ export class ShopFoodComponent implements OnInit {
     totalNum: number;
     deliveryFee: number;
     minimumOrderAmount: number;
-    constructor() { }
+    shopListTop: any[];
+    foodScroll: BScroll;
+    menuIndexChange = true;
+    constructor() {
+        this.shopListTop = [];
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.menuList && !changes.menuList.firstChange) {
+            this.initCategoryNum();
+        }
+        console.log('changes=>', changes);
+    }
+
+    ngForCallback(index, flag, item1) {
+        this.i++;
+        console.log('@@@', index, flag, this.i, item1);
+
+        // if (this.foodScroll) {
+        //     return;
+        // }
+        // const listContainer: HTMLElement = this.menuFoodList.nativeElement;
+        // if (!listContainer.children[0].children.length) {
+        //     return;
+        // }
+        // const listArr = Array.from(listContainer.children[0].children);
+        // this.shopListTop = listArr.map((item: HTMLElement) => item.offsetTop);
+        // this.listenScroll(listContainer);
+    }
 
     ngOnInit() {
-        this.initCategoryNum();
+
+    }
+
+
+
+    listenScroll(element) {
+        console.log('@', element);
+        this.foodScroll = new BScroll(element, {
+            probeType: 3,
+            deceleration: 0.001,
+            bounce: false,
+            swipeTime: 2000,
+            click: true,
+        });
+
+        const wrapperMenu = new BScroll(this.wrapperMenu.nativeElement, {
+            click: true,
+        });
+
+        const wrapMenuHeight = this.wrapperMenu.nativeElement.clientHeight;
+        this.foodScroll.on('scroll', (pos) => {
+            console.log(' =====> ', pos);
+            // if (!this.wrapperMenu.nativeElement) {
+            //   return;
+            // }
+            // this.shopListTop.forEach((item, index) => {
+            //   if (this.menuIndexChange && Math.abs(Math.round(pos.y)) >= item) {
+            //     this.menuIndex = index;
+            //     const menuList = this.wrapperMenu.nativeElement.querySelectorAll('.activity_menu');
+            //     const el = menuList[0];
+            //     wrapperMenu.scrollToElement(el, 800, 0, -(wrapMenuHeight / 2 - 50));
+            //   }
+            // });
+        });
     }
 
     initCategoryNum() {
