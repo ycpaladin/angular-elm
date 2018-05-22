@@ -1,4 +1,9 @@
 @import '../../../../assets/mixin.scss';
+:host{
+    display: flex;
+    flex: 1;
+}
+
 .food_container {
   display: flex;
   flex: 1;

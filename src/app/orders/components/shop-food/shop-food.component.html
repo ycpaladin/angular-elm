@@ -3,7 +3,7 @@
     <section class="menu_left" #wrapperMenu>
       <ul>
         <li *ngFor="let item of menuList; let index = index" class="menu_left_li" [class.activity_menu]="index === menuIndex" (click)="chooseMenu(index)">
-          <img [attr.src]="getImgPath(item.icon_url)" *ngIf="item.icon_url">
+          <img [attr.src]="item.icon_url | imagePath" *ngIf="item.icon_url">
           <span>{{item.name}}</span>
           <span class="category_num" *ngIf="categoryNum&&categoryNum[index]&&item.type==1">{{categoryNum[index]}}</span>
         </li>
@@ -12,7 +12,7 @@
     <section class="menu_right" #menuFoodList>
       <ul>
         <li *ngFor="let item of menuList; let index = index; let last = last">
-          {{ngForCallback(index,last,item)}}
+          <!-- {{ngForCallback(index,last,item)}} -->
           <header class="menu_detail_header">
             <section class="menu_detail_header_left">
               <strong class="menu_item_title">{{item.name}}</strong>
@@ -24,7 +24,7 @@
               {{item.description}}
             </p>
           </header>
-          <!-- <section *ngFor="let foods of item.foods" class="menu_detail_list">
+          <section *ngFor="let foods of item.foods" class="menu_detail_list">
             <div [routerLink]="['/']" class="menu_detail_link">
               <section class="menu_food_img">
                 <img [attr.src]="imgBaseUrl + foods.image_path">
@@ -56,10 +56,10 @@
                 <span>{{foods.specfoods[0].price}}</span>
                 <span *ngIf="foods.specifications.length">起</span>
               </section>
-               <buy-cart :shopId='shopId' :foods='foods' @moveInCart="listenInCart" @showChooseList="showChooseList" @showReduceTip="showReduceTip"
-                    @showMoveDot="showMoveDotFun"></buy-cart> 
+               <!-- <buy-cart :shopId='shopId' :foods='foods' @moveInCart="listenInCart" @showChooseList="showChooseList" @showReduceTip="showReduceTip"
+                    @showMoveDot="showMoveDotFun"></buy-cart>  -->
             </footer>
-          </section> -->
+          </section>
 
         </li>
       </ul>

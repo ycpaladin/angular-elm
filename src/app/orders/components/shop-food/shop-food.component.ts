@@ -37,25 +37,20 @@ export class ShopFoodComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.menuList && !changes.menuList.firstChange) {
             this.initCategoryNum();
+            setTimeout(() => {
+                const listContainer: HTMLElement = this.menuFoodList.nativeElement;
+                if (!listContainer.children[0].children.length) {
+                    return;
+                }
+                const listArr = Array.from(listContainer.children[0].children);
+                this.shopListTop = listArr.map((item: HTMLElement) => item.offsetTop);
+                this.listenScroll(listContainer);
+            }, 20);
         }
         console.log('changes=>', changes);
+
     }
 
-    ngForCallback(index, flag, item1) {
-        this.i++;
-        console.log('@@@', index, flag, this.i, item1);
-
-        // if (this.foodScroll) {
-        //     return;
-        // }
-        // const listContainer: HTMLElement = this.menuFoodList.nativeElement;
-        // if (!listContainer.children[0].children.length) {
-        //     return;
-        // }
-        // const listArr = Array.from(listContainer.children[0].children);
-        // this.shopListTop = listArr.map((item: HTMLElement) => item.offsetTop);
-        // this.listenScroll(listContainer);
-    }
 
     ngOnInit() {
 
@@ -79,18 +74,17 @@ export class ShopFoodComponent implements OnInit, OnChanges {
 
         const wrapMenuHeight = this.wrapperMenu.nativeElement.clientHeight;
         this.foodScroll.on('scroll', (pos) => {
-            console.log(' =====> ', pos);
-            // if (!this.wrapperMenu.nativeElement) {
-            //   return;
-            // }
-            // this.shopListTop.forEach((item, index) => {
-            //   if (this.menuIndexChange && Math.abs(Math.round(pos.y)) >= item) {
-            //     this.menuIndex = index;
-            //     const menuList = this.wrapperMenu.nativeElement.querySelectorAll('.activity_menu');
-            //     const el = menuList[0];
-            //     wrapperMenu.scrollToElement(el, 800, 0, -(wrapMenuHeight / 2 - 50));
-            //   }
-            // });
+            if (!this.wrapperMenu.nativeElement) {
+              return;
+            }
+            this.shopListTop.forEach((item, index) => {
+              if (this.menuIndexChange && Math.abs(Math.round(pos.y)) >= item) {
+                this.menuIndex = index;
+                const menuList = this.wrapperMenu.nativeElement.querySelectorAll('.activity_menu');
+                const el = menuList[0];
+                wrapperMenu.scrollToElement(el, 800, 0, -(wrapMenuHeight / 2 - 50));
+              }
+            });
         });
     }
 

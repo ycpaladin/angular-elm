@@ -30,7 +30,7 @@
       </ul>
       <ul class="rating_list_ul">
         <li *ngFor="let item of ratingList" class="rating_list_li">
-          <img [attr.src]="getImgPath(item.avatar)" class="user_avatar">
+          <img [attr.src]="item.avatar | imagePath" class="user_avatar">
           <section class="rating_list_details">
             <header>
               <section class="username_star">
@@ -44,7 +44,7 @@
             </header>
             <ul class="food_img_ul">
               <li *ngFor="let item$ of item.item_ratings">
-                <img [attr.src]="getImgPath(item$.image_hash)" *ngIf="item$.image_hash">
+                <img [attr.src]="item$.image_hash | imagePath" *ngIf="item$.image_hash">
               </li>
             </ul>
             <ul class="food_name_ul">
