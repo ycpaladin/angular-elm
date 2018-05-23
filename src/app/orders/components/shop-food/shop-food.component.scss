@@ -1,10 +1,10 @@
 @import '../../../../assets/mixin.scss';
-:host{
-    display: flex;
-    flex: 1;
-}
+// :host{
+//     display: flex;
+//     flex: 1;
+// }
 
-.food_container {
+:host {
   display: flex;
   flex: 1;
   padding-bottom: 2rem;

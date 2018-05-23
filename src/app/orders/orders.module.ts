@@ -29,6 +29,8 @@ import { ShopBuyCarComponent } from './components/shop-buy-car/shop-buy-car.comp
 import { ShopHeaderComponent } from './components/shop-header/shop-header.component';
 import { ShopEffect } from './effects/shop.effect';
 import { ImagePathPipe } from './pipes/image-path.pipe';
+import { CartService } from './services/cart.service';
+import { CartEffect } from './effects/cart.effect';
 
 const routes: Routes = [
     { path: 'home/:geohash', component: HomeComponent },
@@ -45,13 +47,13 @@ const routes: Routes = [
         FormsModule,
         HttpClientModule,
         RouterModule.forChild(routes),
-        EffectsModule.forFeature([HomeEffect, SearchEffect, ShopEffect]),
+        EffectsModule.forFeature([HomeEffect, SearchEffect, ShopEffect, CartEffect]),
         StoreModule.forFeature('order', reducer)
     ],
     declarations: [
         HomeComponent, SearchComponent, FoodComponent, ShopComponent,
         ConfirmOrderComponent, ShopListComponent, DistancePipe, CategoryListSwiperComponent,
         ShopRatingComponent, ShopFoodComponent, ShopBuyCarComponent, ShopHeaderComponent, ImagePathPipe],
-    providers: [HomeService, PositionService, CityHistoryService, SearchService, ShopService]
+    providers: [HomeService, PositionService, CityHistoryService, SearchService, ShopService, CartService]
 })
 export class OrdersModule { }

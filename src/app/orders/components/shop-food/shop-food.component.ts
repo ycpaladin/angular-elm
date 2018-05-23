@@ -27,7 +27,7 @@ export class ShopFoodComponent implements OnInit, OnChanges {
     totalNum: number;
     deliveryFee: number;
     minimumOrderAmount: number;
-    shopListTop: any[];
+    shopListTop: number[];
     foodScroll: BScroll;
     menuIndexChange = true;
     constructor() {
@@ -45,10 +45,8 @@ export class ShopFoodComponent implements OnInit, OnChanges {
                 const listArr = Array.from(listContainer.children[0].children);
                 this.shopListTop = listArr.map((item: HTMLElement) => item.offsetTop);
                 this.listenScroll(listContainer);
-            }, 20);
+            }, 0);
         }
-        console.log('changes=>', changes);
-
     }
 
 
@@ -59,7 +57,6 @@ export class ShopFoodComponent implements OnInit, OnChanges {
 
 
     listenScroll(element) {
-        console.log('@', element);
         this.foodScroll = new BScroll(element, {
             probeType: 3,
             deceleration: 0.001,
@@ -130,11 +127,12 @@ export class ShopFoodComponent implements OnInit, OnChanges {
     }
 
     chooseMenu(index: number) {
-
-    }
-
-    getImgPath(path) {
-
+        this.menuIndex = index;
+        this.menuIndexChange = false;
+        this.foodScroll.scrollTo(0, -this.shopListTop[index], 400);
+        this.foodScroll.on('scrollEnd', () => {
+            this.menuIndexChange = true;
+        });
     }
 
     clearCart() {

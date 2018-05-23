@@ -15,7 +15,7 @@ export class ShopBuyCarComponent implements OnInit {
   showCartList: boolean;
   receiveInCart: boolean;
 
-  @Output() clearCart = new EventEmitter();
+  @Output() clearCart = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit() {

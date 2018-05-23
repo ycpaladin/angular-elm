@@ -1,70 +1,69 @@
-<section class="food_container">
-  <section class="menu_container">
-    <section class="menu_left" #wrapperMenu>
-      <ul>
-        <li *ngFor="let item of menuList; let index = index" class="menu_left_li" [class.activity_menu]="index === menuIndex" (click)="chooseMenu(index)">
-          <img [attr.src]="item.icon_url | imagePath" *ngIf="item.icon_url">
-          <span>{{item.name}}</span>
-          <span class="category_num" *ngIf="categoryNum&&categoryNum[index]&&item.type==1">{{categoryNum[index]}}</span>
-        </li>
-      </ul>
-    </section>
-    <section class="menu_right" #menuFoodList>
-      <ul>
-        <li *ngFor="let item of menuList; let index = index; let last = last">
-          <!-- {{ngForCallback(index,last,item)}} -->
-          <header class="menu_detail_header">
-            <section class="menu_detail_header_left">
-              <strong class="menu_item_title">{{item.name}}</strong>
-              <span class="menu_item_description">{{item.description}}</span>
-            </section>
-            <span class="menu_detail_header_right" (click)="showTitleDetail(index)"></span>
-            <p class="description_tip" *ngIf="index === titleDetailIndex">
-              <span>{{item.name}}</span>
-              {{item.description}}
-            </p>
-          </header>
-          <section *ngFor="let foods of item.foods" class="menu_detail_list">
-            <div [routerLink]="['/']" class="menu_detail_link">
-              <section class="menu_food_img">
-                <img [attr.src]="imgBaseUrl + foods.image_path">
-              </section>
-              <section class="menu_food_description">
-                <h3 class="food_description_head">
-                  <strong class="description_foodname">{{foods.name}}</strong>
-                  <ul *ngIf="foods.attributes.length" class="attributes_ul">
-                    <li *ngFor="let attribute of foods.attributes" [style.color]="'#' + attribute.icon_color" [style.borderColor]="'#' +attribute.icon_color"
-                      [style.attribute_new]="attribute.icon_name === '新'">
-                      <p [style.color]="attribute.icon_name == '新'? '#fff' : '#' + attribute.icon_color">{{attribute.icon_name == '新'? '新品':attribute.icon_name}}</p>
-                    </li>
-                  </ul>
-
-                </h3>
-                <p class="food_description_content">{{foods.description}}</p>
-                <p class="food_description_sale_rating">
-                  <span>月售{{foods.month_sales}}份</span>
-                  <span>好评率{{foods.satisfy_rate}}%</span>
-                </p>
-                <p v-if="foods.activity" class="food_activity">
-                  <span [style.color]="'#' + foods.activity?.image_text_color" [style.borderColor]="'#' +foods.activity?.icon_color">{{foods.activity?.image_text}}</span>
-                </p>
-              </section>
-            </div>
-            <footer class="menu_detail_footer">
-              <section class="food_price">
-                <span>¥</span>
-                <span>{{foods.specfoods[0].price}}</span>
-                <span *ngIf="foods.specifications.length">起</span>
-              </section>
-               <!-- <buy-cart :shopId='shopId' :foods='foods' @moveInCart="listenInCart" @showChooseList="showChooseList" @showReduceTip="showReduceTip"
-                    @showMoveDot="showMoveDotFun"></buy-cart>  -->
-            </footer>
-          </section>
-
-        </li>
-      </ul>
-    </section>
+<!-- <section class="food_container"> -->
+<section class="menu_container">
+  <section class="menu_left" #wrapperMenu>
+    <ul>
+      <li *ngFor="let item of menuList; let index = index" class="menu_left_li" [class.activity_menu]="index === menuIndex" (click)="chooseMenu(index)">
+        <img [attr.src]="item.icon_url | imagePath" *ngIf="item.icon_url">
+        <span>{{item.name}}</span>
+        <span class="category_num" *ngIf="categoryNum&&categoryNum[index]&&item.type==1">{{categoryNum[index]}}</span>
+      </li>
+    </ul>
   </section>
-  <app-shop-buy-car></app-shop-buy-car>
-  <!-- <div class="screen_cover" v-show="showCartList&&cartFoodList.length" (click)="toggleCartList()"></div> -->
+  <section class="menu_right" #menuFoodList>
+    <ul>
+      <li *ngFor="let item of menuList; let index = index; let last = last">
+        <header class="menu_detail_header">
+          <section class="menu_detail_header_left">
+            <strong class="menu_item_title">{{item.name}}</strong>
+            <span class="menu_item_description">{{item.description}}</span>
+          </section>
+          <span class="menu_detail_header_right" (click)="showTitleDetail(index)"></span>
+          <p class="description_tip" *ngIf="index === titleDetailIndex">
+            <span>{{item.name}}</span>
+            {{item.description}}
+          </p>
+        </header>
+        <section *ngFor="let foods of item.foods" class="menu_detail_list">
+          <div [routerLink]="['/']" class="menu_detail_link">
+            <section class="menu_food_img">
+              <img [attr.src]="imgBaseUrl + foods.image_path">
+            </section>
+            <section class="menu_food_description">
+              <h3 class="food_description_head">
+                <strong class="description_foodname">{{foods.name}}</strong>
+                <ul *ngIf="foods.attributes.length" class="attributes_ul">
+                  <li *ngFor="let attribute of foods.attributes" [style.color]="'#' + attribute.icon_color" [style.borderColor]="'#' +attribute.icon_color"
+                    [class.attribute_new]="attribute.icon_name === '新'">
+                    <p [style.color]="attribute.icon_name === '新'? '#fff' : '#' + attribute.icon_color">{{attribute.icon_name === '新'? '新品':attribute.icon_name}}</p>
+                  </li>
+                </ul>
+
+              </h3>
+              <p class="food_description_content">{{foods.description}}</p>
+              <p class="food_description_sale_rating">
+                <span>月售{{foods.month_sales}}份</span>
+                <span>好评率{{foods.satisfy_rate}}%</span>
+              </p>
+              <p v-if="foods.activity" class="food_activity">
+                <span [style.color]="'#' + foods.activity?.image_text_color" [style.borderColor]="'#' +foods.activity?.icon_color">{{foods.activity?.image_text}}</span>
+              </p>
+            </section>
+          </div>
+          <footer class="menu_detail_footer">
+            <section class="food_price">
+              <span>¥</span>
+              <span>{{foods.specfoods[0].price}}</span>
+              <span *ngIf="foods.specifications.length">起</span>
+            </section>
+            <!-- <buy-cart :shopId='shopId' :foods='foods' @moveInCart="listenInCart" @showChooseList="showChooseList" @showReduceTip="showReduceTip"
+                    @showMoveDot="showMoveDotFun"></buy-cart>  -->
+          </footer>
+        </section>
+
+      </li>
+    </ul>
+  </section>
 </section>
+<app-shop-buy-car></app-shop-buy-car>
+<!-- <div class="screen_cover" v-show="showCartList&&cartFoodList.length" (click)="toggleCartList()"></div> -->
+<!-- </section> -->

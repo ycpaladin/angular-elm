@@ -27,7 +27,6 @@ export class CityHistoryService {
   }
 
   add(data: CityHistory): Observable<boolean> {
-    console.log('====================>');
     return new Observable<boolean>(observer => {
       this.table.filter(t => t.geohash === data.geohash).first().then(t => {
         if (!t) {

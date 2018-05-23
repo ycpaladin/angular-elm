@@ -3,27 +3,30 @@ import * as fromRoot from '../../store';
 import * as fromSearch from './search.reducer';
 import * as fromStatus from './httpStatus.reducer';
 import * as fromShop from './shop.reducer';
+import * as fromCart from './cart.reducer';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import { RouterReducerState, routerReducer } from '@ngrx/router-store';
 
 export interface OrderState {
-  home: fromHome.State;
-  status: fromStatus.State;
-  shop: fromShop.State;
-  search: fromSearch.State;
+    home: fromHome.State;
+    status: fromStatus.State;
+    shop: fromShop.State;
+    search: fromSearch.State;
+    cart: fromCart.State;
 }
 
 
 export interface State extends fromRoot.State {
-  order: OrderState;
+    order: OrderState;
 }
 
 
 export const reducer: ActionReducerMap<OrderState> = {
-  home: fromHome.reducer,
-  status: fromStatus.reducer,
-  shop: fromShop.reducer,
-  search: fromSearch.reducer,
+    home: fromHome.reducer,
+    status: fromStatus.reducer,
+    shop: fromShop.reducer,
+    search: fromSearch.reducer,
+    cart: fromCart.reducer,
 };
 
 export const getOrderState = createFeatureSelector<OrderState>('order');
@@ -52,9 +55,12 @@ export const getShop = createSelector(shopState, fromShop.getCurrentRestaurant);
 export const getShopId = createSelector(shopState, fromShop.getRestaurantId);
 export const getShopCategories = createSelector(shopState, fromShop.getCategories);
 export const getShopRatings = createSelector(shopState, fromShop.getRatings);
-export const getShopScores = createSelector(shopState,  fromShop.getScores);
-export const getShopTags = createSelector(shopState,  fromShop.getTags);
+export const getShopScores = createSelector(shopState, fromShop.getScores);
+export const getShopTags = createSelector(shopState, fromShop.getTags);
 export const getShopDetials = createSelector(shopState, fromShop.getDetials);
+
+export const cartState = createSelector(getOrderState, state => state.cart);
+export const getCartItems = createSelector(cartState, fromCart.getCartItems);
 
 export { getPosition, getPositionName, getGeohash } from '../../store';
 

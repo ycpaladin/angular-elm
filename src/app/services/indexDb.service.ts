@@ -14,6 +14,7 @@ export class IndexDbBaseService extends Dexie {
             cityGroup: '++id',
             position: '++id',
             searchHistory: '++id',
+            shoppingCart: '++id'
         });
     }
 }
