@@ -31,12 +31,13 @@ import { ShopEffect } from './effects/shop.effect';
 import { ImagePathPipe } from './pipes/image-path.pipe';
 import { CartService } from './services/cart.service';
 import { CartEffect } from './effects/cart.effect';
+import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 
 const routes: Routes = [
     { path: 'home/:geohash', component: HomeComponent },
     { path: 'search', component: SearchComponent },
     { path: 'food', component: FoodComponent },
-    { path: 'shop/:geohash/:id', component: ShopComponent },
+    { path: 'shop/:geohash/:shopId', component: ShopComponent },
     { path: 'confirmOrder', component: ConfirmOrderComponent }
 ];
 
@@ -53,7 +54,7 @@ const routes: Routes = [
     declarations: [
         HomeComponent, SearchComponent, FoodComponent, ShopComponent,
         ConfirmOrderComponent, ShopListComponent, DistancePipe, CategoryListSwiperComponent,
-        ShopRatingComponent, ShopFoodComponent, ShopBuyCarComponent, ShopHeaderComponent, ImagePathPipe],
+        ShopRatingComponent, ShopFoodComponent, ShopBuyCarComponent, ShopHeaderComponent, ImagePathPipe, AddToCartComponent],
     providers: [HomeService, PositionService, CityHistoryService, SearchService, ShopService, CartService]
 })
 export class OrdersModule { }

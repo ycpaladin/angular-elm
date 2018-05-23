@@ -1,6 +1,6 @@
 <section class="buy_cart_container">
   <section (click)="toggleCartList()" class="cart_icon_num">
-    <div class="cart_icon_container" [class.cart_icon_activity]="totalPrice > 0" [class.move_in_cart]="receiveInCart" ref="cartContainer">
+    <div class="cart_icon_container" [class.cart_icon_activity]="totalPrice > 0" [class.move_in_cart]="receiveInCart" #cartContainer>
       <span *ngIf="totalNum" class="cart_list_length">
         {{totalNum}}
       </span>
@@ -15,7 +15,7 @@
   </section>
   <section class="gotopay" [class.gotopay_acitvity]="minimumOrderAmount <= 0">
     <span class="gotopay_button_style" *ngIf="minimumOrderAmount > 0">还差¥{{minimumOrderAmount}}起送</span>
-    <a [routerLink]="['/confirmOrder']" class="gotopay_button_style" v-else>去结算</a>
+    <a [routerLink]="['/confirmOrder']" class="gotopay_button_style" *ngIf="!(minimumOrderAmount > 0)">去结算</a>
   </section>
 </section>
 <section class="cart_food_list" *ngIf="showCartList&&cartFoodList.length">

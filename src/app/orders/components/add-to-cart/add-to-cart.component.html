@@ -1,0 +1,30 @@
+<section class="cart_module">
+  <section *ngIf="!foods.specifications.length" class="cart_button">
+    <!-- <transition name="showReduce"> -->
+    <span (click)="_removeOutCart()" *ngIf="foodNum">
+      <svg>
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-minus"></use>
+      </svg>
+    </span>
+    <!-- </transition> -->
+    <!-- <transition name="fade"> -->
+    <span class="cart_num" *ngIf="foodNum">{{foodNum}}</span>
+    <!-- </transition> -->
+    <svg class="add_icon" (touchstart)="_addToCart($event)">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-add"></use>
+    </svg>
+  </section>
+  <section class="choose_specification" *ngIf="foods.specifications.length">
+    <section class="choose_icon_container">
+      <!-- <transition name="showReduce"> -->
+      <svg class="specs_reduce_icon" *ngIf="foodNum" (click)="_showReduceTip()">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-minus"></use>
+      </svg>
+      <!-- </transition> -->
+      <!-- <transition name="fade"> -->
+      <span class="cart_num" *ngIf="foodNum">{{foodNum}}</span>
+      <!-- </transition> -->
+      <span class="show_chooselist" (click)="_showChooseList()">选规格</span>
+    </section>
+  </section>
+</section>

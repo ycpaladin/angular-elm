@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
-import { ShopDetials, ShopCategory } from '../../models';
+import { ShopDetials, ShopCategory, Food } from '../../models';
 import { imgBaseUrl } from '../../../../environments/environment';
 import 'better-scroll';
+import { CartItem } from '../../models/cart';
+import { ActivatedRoute } from '@angular/router';
 declare let BScroll: BScrollStatic;
 
 @Component({
@@ -15,7 +17,9 @@ export class ShopFoodComponent implements OnInit, OnChanges {
     @ViewChild('wrapperMenu') wrapperMenu: ElementRef;
     @ViewChild('menuFoodList') menuFoodList: ElementRef;
     @Input() menuList: ShopCategory[];
-    @Input() shopCart: any;
+    @Input() shopCart: CartItem[];
+    @Input() shopDetailData: ShopDetials;
+    @Input() showLoading: boolean;
 
     i = 0;
     categoryNum: any[];
@@ -30,7 +34,7 @@ export class ShopFoodComponent implements OnInit, OnChanges {
     shopListTop: number[];
     foodScroll: BScroll;
     menuIndexChange = true;
-    constructor() {
+    constructor(public router$: ActivatedRoute) {
         this.shopListTop = [];
     }
 
@@ -72,15 +76,15 @@ export class ShopFoodComponent implements OnInit, OnChanges {
         const wrapMenuHeight = this.wrapperMenu.nativeElement.clientHeight;
         this.foodScroll.on('scroll', (pos) => {
             if (!this.wrapperMenu.nativeElement) {
-              return;
+                return;
             }
             this.shopListTop.forEach((item, index) => {
-              if (this.menuIndexChange && Math.abs(Math.round(pos.y)) >= item) {
-                this.menuIndex = index;
-                const menuList = this.wrapperMenu.nativeElement.querySelectorAll('.activity_menu');
-                const el = menuList[0];
-                wrapperMenu.scrollToElement(el, 800, 0, -(wrapMenuHeight / 2 - 50));
-              }
+                if (this.menuIndexChange && Math.abs(Math.round(pos.y)) >= item) {
+                    this.menuIndex = index;
+                    const menuList = this.wrapperMenu.nativeElement.querySelectorAll('.activity_menu');
+                    const el = menuList[0];
+                    wrapperMenu.scrollToElement(el, 800, 0, -(wrapMenuHeight / 2 - 50));
+                }
             });
         });
     }
@@ -139,12 +143,24 @@ export class ShopFoodComponent implements OnInit, OnChanges {
 
     }
 
-    removeOutCart() {
-
+    removeOutCart(item: CartItem) {
+        console.log(item);
     }
 
-    addToCart() {
+    addToCart(item: CartItem) {
+        console.log(item);
+    }
 
+    showMoveDot(item: { showMoveDot: boolean[], elLeft: number, elBottom: number }) {
+        console.log(item);
+    }
+
+    showReduceTip() {
+        console.log('showReduceTip');
+    }
+
+    showChooseList(foods: Food) {
+        console.log(foods);
     }
 
     toggleCartList() {

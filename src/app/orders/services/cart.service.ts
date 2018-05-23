@@ -16,9 +16,9 @@ export class CartService {
     }
 
 
-    getAll(): Observable<CartItem[]> {
+    getAll(shopId: string): Observable<CartItem[]> {
         return new Observable<CartItem[]>(observer => {
-            this.table.toArray().then(d => {
+            this.table.filter(t => t.shopId === shopId).toArray().then(d => {
                 observer.next(d);
             }).catch(e => observer.error(e)).finally(() => observer.complete());
             return () => { };
@@ -35,7 +35,7 @@ export class CartService {
     }
 
     addOneAndGetAll(item: CartItem): Observable<CartItem[]> {
-        return forkJoin([this.addOne(item), this.getAll()]).pipe(
+        return forkJoin([this.addOne(item), this.getAll(item.shopId)]).pipe(
             map(([, items]) => items)
         );
     }
@@ -49,15 +49,15 @@ export class CartService {
         });
     }
 
-    removeOneAndGetAll(id: number): Observable<CartItem[]> {
-        return forkJoin([this.removeOne(id), this.getAll()]).pipe(
+    removeOneAndGetAll(id: number, shopId: string): Observable<CartItem[]> {
+        return forkJoin([this.removeOne(id), this.getAll(shopId)]).pipe(
             map(([, items]) => items)
         );
     }
 
-    clearAll(): Observable<boolean> {
+    clearAll(shopId: string): Observable<boolean> {
         return new Observable<boolean>(observer => {
-            this.table.clear().then(() => {
+            this.table.filter(t => t.shopId === shopId).delete().then(() => {
                 observer.next(true);
             }).catch(e => observer.error(e)).finally(() => observer.complete());
             return () => { };

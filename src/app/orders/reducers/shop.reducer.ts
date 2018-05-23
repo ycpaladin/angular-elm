@@ -64,6 +64,7 @@ function getNewState(state: State, restaurant: Restaurant) {
 export const getCurrentRestaurant = (state: State): Restaurant => (state.restaurant_id && state[state.restaurant_id]) || {};
 export const getRestaurantId = (state: State) => state.restaurant_id;
 
+// const get
 export const getCategories = (state: State) => (state.restaurant_id && state.restaurants[state.restaurant_id] || {}).categories;
 export const getRatings = (state: State) => (state.restaurant_id && state.restaurants[state.restaurant_id] || {}).ratings;
 export const getScores = (state: State) => (state.restaurant_id && state.restaurants[state.restaurant_id] || {}).scores;

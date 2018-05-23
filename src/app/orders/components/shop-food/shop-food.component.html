@@ -57,6 +57,8 @@
             </section>
             <!-- <buy-cart :shopId='shopId' :foods='foods' @moveInCart="listenInCart" @showChooseList="showChooseList" @showReduceTip="showReduceTip"
                     @showMoveDot="showMoveDotFun"></buy-cart>  -->
+            <app-add-to-cart [foods]="foods" [shopId]="(router$.params | async)['shopId']" (showReduceTip)="showReduceTip($event)" (showChooseList)="showChooseList($event)"
+              (addToCart)="addToCart($event)" (removeOutCart)="removeOutCart($event)" (showMoveDot)="showMoveDot($event)"></app-add-to-cart>
           </footer>
         </section>
 
@@ -64,6 +66,6 @@
     </ul>
   </section>
 </section>
-<app-shop-buy-car></app-shop-buy-car>
+<app-shop-buy-car [shopDetailData]="shopDetailData" *ngIf="!showLoading"></app-shop-buy-car>
 <!-- <div class="screen_cover" v-show="showCartList&&cartFoodList.length" (click)="toggleCartList()"></div> -->
 <!-- </section> -->

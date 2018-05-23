@@ -13,12 +13,18 @@ export enum CartActionTypes {
     REMOVE_CART_ITEM_FAIL = '[CART] REMOVE_CART_ITEM_FAIL',
     CLEAR_ALL_CART_ITEMS = '[CART] CLEAR_ALL_CART_ITEMS',
     CLEAR_ALL_CART_ITEMS_SUCESS = '[CART] CLEAR_ALL_CART_ITEMS_SUCESS',
-    CLEAR_ALL_CART_ITEMS_FAIL = '[CART] CLEAR_ALL_CART_ITEMS_FAIL'
+    CLEAR_ALL_CART_ITEMS_FAIL = '[CART] CLEAR_ALL_CART_ITEMS_FAIL',
+    // REFRESH_SHOP_ID = '[CART] REFRESH_SHOP_ID'
 }
+
+// export class RefreshShopId implements Action {
+//     readonly type = CartActionTypes.REFRESH_SHOP_ID;
+//     constructor(public shopId: string) { }
+// }
 
 export class GetAllCartItem implements Action {
     readonly type = CartActionTypes.GET_ALL_CART_ITEMS;
-    constructor() { }
+    constructor(public shopId: string) { }
 }
 
 export class GetAllCartItemSucess implements Action {
@@ -49,7 +55,7 @@ export class AddCartItemFail implements Action {
 
 export class RemoveCartItem implements Action {
     readonly type = CartActionTypes.REMOVE_CART_ITEM;
-    constructor(public id: number) { }
+    constructor(public id: number, public shopId: string) { }
 }
 
 export class RemoveCartItemSucess implements Action {
@@ -65,7 +71,7 @@ export class RemoveCartItemFail implements Action {
 
 export class ClearAllCartItem implements Action {
     readonly type = CartActionTypes.CLEAR_ALL_CART_ITEMS;
-    constructor() { }
+    constructor(public shopId: string) { }
 }
 
 export class ClearAllCartItemSucess implements Action {
@@ -78,8 +84,12 @@ export class ClearAllCartItemFail implements Action {
     constructor(public message: string) { }
 }
 
-export type Actions = GetAllCartItem | GetAllCartItemSucess | GetAllCartItemFail | AddCartItem | AddCartItemSucess | AddCartItemFail |
-    RemoveCartItem | RemoveCartItemSucess | RemoveCartItemFail | ClearAllCartItem | ClearAllCartItemSucess | ClearAllCartItemFail;
+export type Actions =
+    // RefreshShopId |
+    GetAllCartItem | GetAllCartItemSucess | GetAllCartItemFail |
+    AddCartItem | AddCartItemSucess | AddCartItemFail |
+    RemoveCartItem | RemoveCartItemSucess | RemoveCartItemFail |
+    ClearAllCartItem | ClearAllCartItemSucess | ClearAllCartItemFail;
 
 
 

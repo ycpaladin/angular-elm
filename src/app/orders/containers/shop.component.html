@@ -41,6 +41,7 @@
       <span [class.activity_show]="changeShowType === 'rating'" (click)="changeShowType='rating'">评价</span>
     </div>
   </section>
-  <app-shop-food *ngIf="changeShowType === 'food'" [menuList]="menuList | async"></app-shop-food>
+  <app-shop-food *ngIf="changeShowType === 'food'" [menuList]="menuList | async" [shopDetailData]="shopDetailData | async"
+    [showLoading]="showLoading | async"></app-shop-food>
   <!-- <app-shop-rating *ngIf="changeShowType ==='rating'"></app-shop-rating> -->
 </section>
