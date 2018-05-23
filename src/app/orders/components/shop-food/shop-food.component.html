@@ -26,7 +26,7 @@
         <section *ngFor="let foods of item.foods" class="menu_detail_list">
           <div [routerLink]="['/']" class="menu_detail_link">
             <section class="menu_food_img">
-              <img [attr.src]="imgBaseUrl + foods.image_path">
+              <img [attr.src]="foods.image_path | imagePath2">
             </section>
             <section class="menu_food_description">
               <h3 class="food_description_head">

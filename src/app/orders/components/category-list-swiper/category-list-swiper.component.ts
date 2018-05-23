@@ -14,10 +14,8 @@ export class CategoryListSwiperComponent implements OnInit, AfterViewInit {
   @ViewChild('swiperContainer') swiperContainer: ElementRef;
   @ViewChild('swiperPagination') swiperPagination: ElementRef;
 
-  imgBaseUrl: string;
   @Input() foodTypes: Category[][];
   constructor() {
-    this.imgBaseUrl = 'https://fuss10.elemecdn.com';
   }
 
   ngOnInit() {

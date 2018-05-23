@@ -2,7 +2,7 @@
   <ul *ngIf="shopListArr?.length">
     <li [routerLink]="['/msite/shop', geohash, item.id]" *ngFor="let item of shopListArr" class="shop_li">
       <section>
-        <img :src="{{ imgBaseUrl + item.image_path}}" class="shop_img">
+        <img [attr.src]="item.image_path | imageBaseUrl" class="shop_img">
       </section>
       <div class="shop_right">
         <header class="shop_detail_header">

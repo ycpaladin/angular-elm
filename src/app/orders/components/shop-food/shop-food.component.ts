@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { ShopDetials, ShopCategory, Food } from '../../models';
-import { imgBaseUrl } from '../../../../environments/environment';
 import 'better-scroll';
 import { CartItem } from '../../models/cart';
 import { ActivatedRoute } from '@angular/router';
@@ -27,7 +26,6 @@ export class ShopFoodComponent implements OnInit, OnChanges {
     cartFoodList: any[];
     totalPrice: number;
     titleDetailIndex: number;
-    imgBaseUrl = imgBaseUrl;
     totalNum: number;
     deliveryFee: number;
     minimumOrderAmount: number;

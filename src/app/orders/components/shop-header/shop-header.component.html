@@ -1,9 +1,9 @@
 <header class="shop_detail_header" ref="shopheader" [style.zIndex]="showActivities? '14':'10'">
-  <img [attr.src]="imgBaseUrl + shopDetailData?.image_path" class="header_cover_img">
+  <img [attr.src]="shopDetailData?.image_path | imageBaseUrl" class="header_cover_img">
   <section class="description_header">
     <a [routerLink]="['/shop/shopDetail']" class="description_top">
       <section class="description_left">
-        <img [attr.src]="imgBaseUrl + shopDetailData?.image_path">
+        <img [attr.src]="shopDetailData?.image_path | imageBaseUrl">
       </section>
       <section class="description_right">
         <h4 class="description_title ellipsis">{{shopDetailData?.name}}</h4>

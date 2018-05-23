@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Shop, Support } from '../../models';
 import { findIndex } from 'lodash';
-import { imgBaseUrl } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-shop-list',
@@ -14,11 +13,9 @@ export class ShopListComponent implements OnInit, OnChanges {
   @Input() geohash: string;
   @Input() shopListArr: Shop[];
   @Input() showLoading: boolean;
-  imgBaseUrl: string;
   touchend: boolean;
   showBackStatus: boolean;
   constructor() {
-    this.imgBaseUrl = imgBaseUrl;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

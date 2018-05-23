@@ -3,7 +3,6 @@ import { Observable, Subscription } from 'rxjs';
 import * as fromOrder from '../reducers';
 import { Store, select } from '@ngrx/store';
 import { Location } from '@angular/common';
-import { imgBaseUrl } from '../../../environments/environment';
 import { ShopDetials, ShopCategory } from '../models';
 import { LoadShopData } from '../actions/shop.action';
 import { ActivatedRoute } from '@angular/router';
@@ -15,8 +14,6 @@ import { CartItem } from '../models/cart';
 })
 export class ShopComponent implements OnInit, OnDestroy {
 
-
-    imgBaseUrl = imgBaseUrl;
 
     showLoading: Observable<boolean>;
     error: Observable<boolean>;

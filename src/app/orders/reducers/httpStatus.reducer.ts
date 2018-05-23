@@ -14,7 +14,7 @@ const initialState: State = {
 };
 
 
-export function reducer(state: State, action: homeActions.Actions | searchActions.Actions | shopActions.Actions): State {
+export function reducer(state: State = initialState, action: homeActions.Actions | searchActions.Actions | shopActions.Actions): State {
     switch (action.type) {
         case homeActions.HomeActionTypes.LOAD_HOME_DATA:
         case searchActions.OrderSearchActionTypes.LOAD_SEARCH_HISTORY:

@@ -5,7 +5,7 @@ import { Action, Store } from '@ngrx/store';
 import {
     CartActionTypes, GetAllCartItem, GetAllCartItemSucess,
     GetAllCartItemFail, AddCartItem, AddCartItemSucess, AddCartItemFail,
-    RemoveCartItem, RemoveCartItemSucess, RemoveCartItemFail, ClearAllCartItem, ClearAllCartItemSucess, ClearAllCartItemFail, RefreshShopId
+    RemoveCartItem, RemoveCartItemSucess, RemoveCartItemFail, ClearAllCartItem, ClearAllCartItemSucess, ClearAllCartItemFail
 } from '../actions/cart.action';
 import { mergeMap, map, catchError, filter, switchMap, tap } from 'rxjs/operators';
 import { CartService } from '../services/cart.service';

@@ -10,7 +10,7 @@
     <ul class="list_container">
       <li [routerLink]="['/msite/shop', item.id]" *ngFor="let item of searchResult | async" class="list_li">
         <section class="item_left">
-          <img :src="imgBaseUrl + item.image_path" class="restaurant_img">
+          <img [attr.src]="item.image_path | imageBaseUrl" class="restaurant_img">
         </section>
         <section class="item_right">
           <div class="item_right_text">

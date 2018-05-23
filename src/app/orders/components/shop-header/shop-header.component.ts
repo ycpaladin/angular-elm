@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { imgBaseUrl } from '../../../../environments/environment';
 import { ShopDetials } from '../../models';
 
 @Component({
@@ -11,7 +10,6 @@ import { ShopDetials } from '../../models';
 export class ShopHeaderComponent implements OnInit, OnChanges {
 
 
-  imgBaseUrl = imgBaseUrl;
   promotionInfo: string;
   showActivities: boolean;
   @Input() shopDetailData: ShopDetials;

@@ -5,7 +5,7 @@
           v-for="foodItem in item" :key="foodItem.id" class="link_to_food"> [routerLink]="['food', geohash, item.title]" -->
       <a class="link_to_food" *ngFor="let foodItem of item">
         <figure>
-          <img src="{{imgBaseUrl + foodItem.image_url}}">
+          <img [attr.src]="foodItem.image_url | imagePath2">
           <figcaption>{{foodItem.title}}</figcaption>
         </figure>
       </a>

@@ -16,8 +16,6 @@ import { LoadHomeData } from '../actions/home.action';
 export class HomeComponent implements OnInit, OnDestroy {
 
 
-  imgBaseUrl: string;
-  //   geohash: string;
   msiteTitle: Observable<string>;
   hasGetData: string;
   foodTypes: Observable<Category[][]>;
@@ -27,7 +25,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   routeSub: Subscription;
   geohash: Observable<string>;
   constructor(public route$: ActivatedRoute, private store$: Store<fromOrder.State>) {
-    this.imgBaseUrl = 'https://fuss10.elemecdn.com';
     this.msiteTitle = this.store$.pipe(select(fromOrder.getPositionName));
     this.foodTypes = this.store$.pipe(select(fromOrder.getHomeCategories));
     this.shopListArr = this.store$.pipe(select(fromOrder.getHomeShopList));
@@ -36,7 +33,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.store$.dispatch(new LoadHomeData());
     this.routeSub = this.route$.params.subscribe(p => {
       this.store$.dispatch(new LoadHomeData(p['geohash']));
     });
