@@ -56,7 +56,9 @@ const routes: Routes = [
     declarations: [
         HomeComponent, SearchComponent, FoodComponent, ShopComponent,
         ConfirmOrderComponent, ShopListComponent, DistancePipe, CategoryListSwiperComponent,
-        ShopRatingComponent, ShopFoodComponent, ShopBuyCarComponent, ShopHeaderComponent, ImagePathPipe, AddToCartComponent, ImagePath2Pipe, ImageBaseUrlPipe],
+        ShopRatingComponent, ShopFoodComponent, ShopBuyCarComponent, ShopHeaderComponent, ImagePathPipe,
+        AddToCartComponent, ImagePath2Pipe, ImageBaseUrlPipe
+    ],
     providers: [HomeService, PositionService, CityHistoryService, SearchService, ShopService, CartService]
 })
 export class OrdersModule { }

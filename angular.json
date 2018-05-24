@@ -9,16 +9,19 @@
       "projectType": "application",
       "prefix": "app",
       "schematics": {
-        "@schematics/angular:component": {
+        "@schematics/schematics:component": {
           "spec": false,
           "flat": true,
           "styleext": "scss"
         },
-        "@schematics/angular:module": {
+        "@schematics/schematics:module": {
           "flat": true,
           "spec": false
         },
-        "@schematics/angular:service": {
+        "@schematics/schematics:service": {
+          "spec": false
+        },
+        "@schematics/schematics:pipe": {
           "spec": false
         }
       },
@@ -39,15 +42,17 @@
               "src/styles.scss"
             ],
             "scripts": [
-                "./node_modules/better-scroll/dist/bscroll.min.js"
+              "./node_modules/better-scroll/dist/bscroll.min.js"
             ]
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -131,6 +136,8 @@
       }
     }
   },
-  "defaultProject": "angular-ele"
-
+  "defaultProject": "angular-ele",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
