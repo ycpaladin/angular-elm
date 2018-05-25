@@ -1,4 +1,4 @@
-<section v-if="!showLoading" class="shop_container">
+<section *ngIf="!(showLoading | async)" class="shop_container">
   <nav class="goback" (click)="goback()">
     <svg width="4rem" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
       <polyline points="12,18 4,9 12,0" style="fill:none;stroke:rgb(255,255,255);stroke-width:3" />
@@ -44,4 +44,7 @@
   <app-shop-food *ngIf="changeShowType === 'food'" [menuList]="menuList | async" [shopDetailData]="shopDetailData | async"
     [showLoading]="showLoading | async"></app-shop-food>
   <!-- <app-shop-rating *ngIf="changeShowType ==='rating'"></app-shop-rating> -->
+</section>
+<section class="animation_opactiy shop_back_svg_container" *ngIf="showLoading | async">
+    <img src="../../../assets/images/shop_back_svg.svg">
 </section>

@@ -53,11 +53,18 @@ export const getMessage = createSelector(statuState, fromStatus.getMessage);
 export const shopState = createSelector(getOrderState, state => state.shop);
 export const getShop = createSelector(shopState, fromShop.getCurrentRestaurant);
 export const getShopId = createSelector(shopState, fromShop.getRestaurantId);
+export const getCategoryId = createSelector(shopState, fromShop.getCategoryId);
+export const getFoodId = createSelector(shopState, fromShop.getFoodId);
 export const getShopCategories = createSelector(shopState, fromShop.getCategories);
 export const getShopRatings = createSelector(shopState, fromShop.getRatings);
 export const getShopScores = createSelector(shopState, fromShop.getScores);
 export const getShopTags = createSelector(shopState, fromShop.getTags);
 export const getShopDetials = createSelector(shopState, fromShop.getDetials);
+
+// export const getFoodById = createSelector(
+//     getShopCategories,
+//     getFoodId,
+//     (categories, foodId) => categories[categoryId].);
 
 export const cartState = createSelector(getOrderState, state => state.cart);
 export const getCartItems = createSelector(cartState, fromCart.getCartItems);

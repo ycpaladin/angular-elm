@@ -38,7 +38,7 @@ import { ImageBaseUrlPipe } from './pipes/image-base-url.pipe';
 const routes: Routes = [
     { path: 'home/:geohash', component: HomeComponent },
     { path: 'search', component: SearchComponent },
-    { path: 'food', component: FoodComponent },
+    { path: 'food/:shopId/:foodId', component: FoodComponent },
     { path: 'shop/:geohash/:shopId', component: ShopComponent },
     { path: 'confirmOrder', component: ConfirmOrderComponent }
 ];
