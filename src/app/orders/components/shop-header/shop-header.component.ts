@@ -16,7 +16,6 @@ export class ShopHeaderComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
   }
 
   ngOnInit() {
