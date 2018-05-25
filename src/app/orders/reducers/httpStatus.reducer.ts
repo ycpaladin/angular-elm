@@ -1,10 +1,26 @@
+/**
+ * HTTP 请求状态
+ */
+
 import * as homeActions from '../actions/home.action';
 import * as searchActions from '../actions/search.action';
 import * as shopActions from '../actions/shop.action';
 
+/**
+ * HTTP 请求状态
+ */
 export interface State {
+    /**
+     * 是否正处于HTTP请求的状态，一般用于控制显示页面中正在加载的动画
+     */
     isFetching: boolean;
+    /**
+     * HTTP请求是否出现了错误
+     */
     error: boolean;
+    /**
+     * HTTP请求返回的消息，可以是成功的消息，也可以是错误消息，但是目前基本上全部是错误消息
+     */
     message?: string;
 }
 
