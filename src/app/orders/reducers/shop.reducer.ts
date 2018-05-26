@@ -2,7 +2,7 @@ import { ShopCategory, ShopRating, ShopTag, ShopScore, ShopDetials } from '../mo
 import { ShopActionTypes, Actions } from '../actions/shop.action';
 
 export interface State {
-    restaurant_id?: string;
+    restaurant_id?: number;
     category_id?: string;
     food_id?: string;
     restaurants: {

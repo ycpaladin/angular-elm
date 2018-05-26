@@ -322,8 +322,8 @@ export interface ShopDetials {
 
 export interface CartFood {
     category_id: number;
-    item_id: string;
-    food_id: string;
+    item_id: number;
+    food_id: number;
     num: number;
     price: number;
     name: string;
@@ -336,4 +336,5 @@ export interface ShopCommData {
     cartFoodList: CartFood[];
     categoryNum: number[];
 }
+
 

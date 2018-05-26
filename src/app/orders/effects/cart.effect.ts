@@ -25,15 +25,10 @@ export class CartEffect {
         map((action: any) => action.payload),
         filter((payload: any) => payload.event.url.indexOf('/msite/shop') !== -1),
         map((payload: any) => payload.routerState),
-        switchMap(({ params }) => this.service$.getAll(params['shopId']).pipe(
+        switchMap(({ params }) => this.service$.getAll(parseInt(params['shopId'], 10)).pipe(
             map(d => new GetAllCartItemSucess(d)),
             catchError(e => of(new GetAllCartItemFail(e)))
         )),
-        // tap((a) => {
-        //     // this.store$.dispatch(new GetAllCartItem(params['shopId']));
-        //     console.log('================>', a);
-        //     // this.s
-        // }),
     );
 
     // @Effect() getAll$: Observable<Action> = this.actions$.pipe(

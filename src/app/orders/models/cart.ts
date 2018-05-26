@@ -1,11 +1,11 @@
 
 export interface CartItem {
     id?: number;
-    shopId: string;
+    shopId: number;
     item_id: number;
     food_id: number;
     category_id: number;
-    packing_fee: any;
+    packing_fee: number;
     sku_id: number;
     stock: number;
     name: string;

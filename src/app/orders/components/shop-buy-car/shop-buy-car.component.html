@@ -1,6 +1,7 @@
 <section class="buy_cart_container">
   <section (click)="toggleCartList()" class="cart_icon_num">
-    <div class="cart_icon_container" [class.cart_icon_activity]="shopCommData.totalPrice > 0" [class.move_in_cart]="receiveInCart" #cartContainer>
+    <div class="cart_icon_container" [class.cart_icon_activity]="shopCommData.totalPrice > 0" [class.move_in_cart]="receiveInCart"
+      #cartContainer>
       <span *ngIf="totalNum" class="cart_list_length">
         {{totalNum}}
       </span>
@@ -40,13 +41,13 @@
           <span>{{item.price}}</span>
         </div>
         <section class="cart_list_control">
-          <span (click)="removeOutCart(item.category_id, item.item_id, item.food_id, item.name, item.price, item.specs)">
+          <span (click)="_removeOutCart(item.item_id)">
             <svg>
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-minus"></use>
             </svg>
           </span>
           <span class="cart_num">{{item.num}}</span>
-          <svg class="cart_add" (click)="addToCart(item.category_id, item.item_id, item.food_id, item.name, item.price, item.specs)">
+          <svg class="cart_add" (click)="_addToCart(item)">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-add"></use>
           </svg>
         </section>
@@ -54,3 +55,4 @@
     </ul>
   </section>
 </section>
+<div class="screen_cover" *ngIf="showCartList&&shopCommData.cartFoodList.length" (click)="toggleCartList()"></div>

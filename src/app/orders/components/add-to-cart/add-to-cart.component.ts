@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Food } from '../../models';
+import { Food, ShopCommData } from '../../models';
 import { CartItem } from '../../models/cart';
 // import { countBy } from 'lodash';
 
@@ -13,7 +13,7 @@ export class AddToCartComponent implements OnInit {
     /**
      * 从购物车中移除
      */
-    @Output() removeOutCart = new EventEmitter<CartItem>();
+    @Output() removeOutCart = new EventEmitter<number>();
     /**
      * 添加到购物车
      */
@@ -22,8 +22,9 @@ export class AddToCartComponent implements OnInit {
     @Output() showChooseList = new EventEmitter<Food>();
     @Output() showReduceTip = new EventEmitter<void>();
     @Input() foods: Food;
-    @Input() shopId: string;
-    @Input() shopCart: CartItem[];
+    @Input() shopId: number;
+    @Input() shopCommData: ShopCommData;
+    // @Input() shopCart: CartItem[];
     _showMoveDot = [];
     constructor() { }
 
@@ -31,47 +32,22 @@ export class AddToCartComponent implements OnInit {
     }
 
     get foodNum(): number {
-        // const category_id = this.foods.category_id;
         const item_id = this.foods.item_id;
-
-
-        // const x = countBy(this.shopCart, (item: CartItem) => item.item_id === item_id);
-        const num = this.shopCart.filter(t => t.item_id === item_id).length;
+        const cartFood = this.shopCommData.cartFoodList.find(t => t.item_id === item_id);
+        const num = (cartFood && cartFood.num) || 0;
         return num;
-        // if (this.shopCart && this.shopCart[item_id]) {
-        //     let num = 1;
-        //     // Object.values(this.shopCart[category_id][item_id]).forEach((item, index) => {
-        //     //     num += item.num;
-        //     // });
-        //     return num;
-        // } else {
-        //     return 0;
-        // }
-
     }
 
     _removeOutCart() {
         if (this.foodNum > 0) {
-            const { category_id, item_id, specfoods: [{ food_id, price, packing_fee, sku_id, stock }] } = this.foods;
-            const item = {
-                shopId: this.shopId,
-                category_id,
-                item_id,
-                food_id,
-                name,
-                price,
-                specs: '',
-                packing_fee,
-                sku_id,
-                stock
-            };
-            this.removeOutCart.next(item);
+            const { item_id } = this.foods;
+            this.removeOutCart.next(item_id);
         }
 
     }
 
     _addToCart($event) {
-        const { category_id, item_id, specfoods: [{ food_id, price, packing_fee, sku_id, stock }] } = this.foods;
+        const { category_id, item_id, specfoods: [{ food_id, price, packing_fee, sku_id, stock }], name, description } = this.foods;
         const item = {
             shopId: this.shopId,
             category_id,
@@ -79,7 +55,7 @@ export class AddToCartComponent implements OnInit {
             food_id,
             name,
             price,
-            specs: '',
+            specs: description,
             packing_fee,
             sku_id,
             stock

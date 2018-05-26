@@ -21,39 +21,25 @@ export class ShopFoodComponent implements OnInit, OnChanges {
 
     @ViewChild('wrapperMenu') wrapperMenu: ElementRef;
     @ViewChild('menuFoodList') menuFoodList: ElementRef;
-    // shopDetailData: Observable<ShopDetials>;
     menuList: Observable<ShopCategory[]>;
     shopCommData: Observable<ShopCommData>;
-    shoppingCart: Observable<CartItem[]>;
-    // totalPrice: Observable<number>;
-    // showLoading: Observable<boolean>;
-
-    // @Input() menuList: ShopCategory[];
-    // @Input() shopCart: CartItem[];
+    // shoppingCart: Observable<CartItem[]>;
     @Input() shopDetailData: ShopDetials;
     @Input() showLoading: boolean;
 
-    // @Input() shopCommData: ShopCommData;
     i = 0;
-    // categoryNum: any[];
     menuIndex = 0;
-    // cartFoodList: any[];
-    // totalPrice: number;
     titleDetailIndex: number;
     deliveryFee: number;
     minimumOrderAmount: number;
     shopListTop: number[];
     foodScroll: BScroll;
     menuIndexChange = true;
-    // shopId: Observable<string>;
     constructor(public router$: ActivatedRoute, private store$: Store<fromOrder.State>) {
         this.shopListTop = [];
-        // this.shopDetailData = this.store$.pipe(select(fromOrder.getShopDetials));
-        // this.shopId = this.store$.pipe(select(fromOrder.getShopId));
         this.menuList = this.store$.pipe(select(fromOrder.getShopCategories));
-        this.shoppingCart = this.store$.pipe(select(fromOrder.getCartItems));
+        // this.shoppingCart = this.store$.pipe(select(fromOrder.getCartItems));
         this.shopCommData = this.store$.pipe(select(fromOrder.getShopCommData));
-        // this.totalPrice = this.store$.pipe(select(fromOrder.getTotalPrice));
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -124,13 +110,11 @@ export class ShopFoodComponent implements OnInit, OnChanges {
         this.store$.dispatch(new ClearAllCartItem());
     }
 
-    removeOutCart(item: CartItem) {
-        // console.log(item);
-        this.store$.dispatch(new RemoveCartItem(item.item_id));
+    removeOutCart(item_id: number) {
+        this.store$.dispatch(new RemoveCartItem(item_id));
     }
 
     addToCart(item: CartItem) {
-        // console.log(item);
         this.store$.dispatch(new AddCartItem(item));
     }
 

@@ -35,7 +35,7 @@ export class ShopComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routerSub$ = this.router$.params.subscribe(p => {
-            this.store$.dispatch(new LoadShopData(p['shopId']));
+            this.store$.dispatch(new LoadShopData(parseInt(p['shopId'], 10)));
         });
     }
 

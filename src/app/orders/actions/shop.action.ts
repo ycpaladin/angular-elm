@@ -27,7 +27,7 @@ export class LoadShopData implements Action {
    * @param restaurant_id 商家ID
    * @param refresh 从服务端加载
    */
-  constructor(public restaurant_id: string, public refreshFromServer: boolean = true) { }
+  constructor(public restaurant_id: number, public refreshFromServer: boolean = true) { }
 }
 
 export class LoadShopDataSucess implements Action {

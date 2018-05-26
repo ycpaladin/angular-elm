@@ -7,6 +7,7 @@ import { ShopComponent } from './containers/shop.component';
 import { ConfirmOrderComponent } from './containers/confirm-order.component';
 import { ComponentsModule } from '../components/components.module';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -48,6 +49,7 @@ const routes: Routes = [
         CommonModule,
         ComponentsModule,
         FormsModule,
+        BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forChild(routes),
         EffectsModule.forFeature([HomeEffect, SearchEffect, ShopEffect, CartEffect]),

@@ -4,6 +4,8 @@
 
 import { CartItem } from '../models/cart';
 import { CartActionTypes, Actions } from '../actions/cart.action';
+import { CartFood } from '../models';
+import { groupBy } from 'lodash';
 
 /**
  * 购物车状态
@@ -57,3 +59,21 @@ export const getTotalPrice = (state: State) => {
     return total;
 };
 
+export const getCartFoodList = (state: State): CartFood[] => {
+    const x = groupBy(state.items, (item: CartItem) => item.item_id);
+    return Object.keys(x).map(key => {
+        const list = x[key];
+        const { id, shopId, item_id, food_id, category_id, packing_fee, sku_id, stock, name, price, specs, } = list[0];
+        const _: CartFood = {
+            item_id,
+            category_id,
+            food_id,
+            num: list.length,
+            price,
+            name,
+            specs
+        };
+        return _;
+    });
+
+};

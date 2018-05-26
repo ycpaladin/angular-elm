@@ -16,7 +16,8 @@ export class CartService {
     }
 
 
-    getAll(shopId: string): Observable<CartItem[]> {
+    getAll(shopId: number): Observable<CartItem[]> {
+        console.log(shopId, typeof shopId);
         return new Observable<CartItem[]>(observer => {
             this.table.filter(t => t.shopId === shopId).toArray().then(d => {
                 observer.next(d);
@@ -35,10 +36,6 @@ export class CartService {
     }
 
     addOneAndGetAll(item: CartItem): Observable<CartItem[]> {
-        // return forkJoin([this.addOne(item), this.getAll(item.shopId)]).pipe(
-        //     map(([, items]) => items)
-        // );
-
         return this.addOne(item).pipe(
             mergeMap(() => this.getAll(item.shopId))
         );
@@ -55,17 +52,13 @@ export class CartService {
         });
     }
 
-    removeOneAndGetAll(item_id: number, shopId: string): Observable<CartItem[]> {
-        // return forkJoin([this.removeOne(item_id), this.getAll(shopId)]).pipe(
-        //     map(([, items]) => items)
-        // );
-
+    removeOneAndGetAll(item_id: number, shopId: number): Observable<CartItem[]> {
         return this.removeOne(item_id).pipe(
             mergeMap(() => this.getAll(shopId))
         );
     }
 
-    clearAll(shopId: string): Observable<boolean> {
+    clearAll(shopId: number): Observable<boolean> {
         return new Observable<boolean>(observer => {
             this.table.filter(t => t.shopId === shopId).delete().then(() => {
                 observer.next(true);
