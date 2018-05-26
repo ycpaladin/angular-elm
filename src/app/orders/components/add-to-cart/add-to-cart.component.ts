@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Food } from '../../models';
 import { CartItem } from '../../models/cart';
+// import { countBy } from 'lodash';
 
 @Component({
     selector: 'app-add-to-cart',
@@ -9,18 +10,44 @@ import { CartItem } from '../../models/cart';
 })
 export class AddToCartComponent implements OnInit {
 
+    /**
+     * 从购物车中移除
+     */
     @Output() removeOutCart = new EventEmitter<CartItem>();
+    /**
+     * 添加到购物车
+     */
     @Output() addToCart = new EventEmitter<CartItem>();
     @Output() showMoveDot = new EventEmitter<{ showMoveDot: boolean[], elLeft: number, elBottom: number }>();
     @Output() showChooseList = new EventEmitter<Food>();
     @Output() showReduceTip = new EventEmitter<void>();
     @Input() foods: Food;
     @Input() shopId: string;
-    foodNum: number;
+    @Input() shopCart: CartItem[];
     _showMoveDot = [];
     constructor() { }
 
     ngOnInit() {
+    }
+
+    get foodNum(): number {
+        // const category_id = this.foods.category_id;
+        const item_id = this.foods.item_id;
+
+
+        // const x = countBy(this.shopCart, (item: CartItem) => item.item_id === item_id);
+        const num = this.shopCart.filter(t => t.item_id === item_id).length;
+        return num;
+        // if (this.shopCart && this.shopCart[item_id]) {
+        //     let num = 1;
+        //     // Object.values(this.shopCart[category_id][item_id]).forEach((item, index) => {
+        //     //     num += item.num;
+        //     // });
+        //     return num;
+        // } else {
+        //     return 0;
+        // }
+
     }
 
     _removeOutCart() {

@@ -1,8 +1,14 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
-import { ShopDetials, ShopCategory, Food } from '../../models';
+import { ShopDetials, ShopCategory, Food, ShopCommData } from '../../models';
 import 'better-scroll';
 import { CartItem } from '../../models/cart';
 import { ActivatedRoute } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import * as fromOrder from '../../reducers';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ClearAllCartItem, AddCartItem, RemoveCartItem } from '../../actions/cart.action';
+
 declare let BScroll: BScrollStatic;
 
 @Component({
@@ -15,30 +21,43 @@ export class ShopFoodComponent implements OnInit, OnChanges {
 
     @ViewChild('wrapperMenu') wrapperMenu: ElementRef;
     @ViewChild('menuFoodList') menuFoodList: ElementRef;
-    @Input() menuList: ShopCategory[];
-    @Input() shopCart: CartItem[];
+    // shopDetailData: Observable<ShopDetials>;
+    menuList: Observable<ShopCategory[]>;
+    shopCommData: Observable<ShopCommData>;
+    shoppingCart: Observable<CartItem[]>;
+    // totalPrice: Observable<number>;
+    // showLoading: Observable<boolean>;
+
+    // @Input() menuList: ShopCategory[];
+    // @Input() shopCart: CartItem[];
     @Input() shopDetailData: ShopDetials;
     @Input() showLoading: boolean;
 
+    // @Input() shopCommData: ShopCommData;
     i = 0;
-    categoryNum: any[];
+    // categoryNum: any[];
     menuIndex = 0;
-    cartFoodList: any[];
-    totalPrice: number;
+    // cartFoodList: any[];
+    // totalPrice: number;
     titleDetailIndex: number;
-    totalNum: number;
     deliveryFee: number;
     minimumOrderAmount: number;
     shopListTop: number[];
     foodScroll: BScroll;
     menuIndexChange = true;
-    constructor(public router$: ActivatedRoute) {
+    // shopId: Observable<string>;
+    constructor(public router$: ActivatedRoute, private store$: Store<fromOrder.State>) {
         this.shopListTop = [];
+        // this.shopDetailData = this.store$.pipe(select(fromOrder.getShopDetials));
+        // this.shopId = this.store$.pipe(select(fromOrder.getShopId));
+        this.menuList = this.store$.pipe(select(fromOrder.getShopCategories));
+        this.shoppingCart = this.store$.pipe(select(fromOrder.getCartItems));
+        this.shopCommData = this.store$.pipe(select(fromOrder.getShopCommData));
+        // this.totalPrice = this.store$.pipe(select(fromOrder.getTotalPrice));
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.menuList && !changes.menuList.firstChange) {
-            this.initCategoryNum();
+        if (changes.shopDetailData && changes.shopDetailData.firstChange) {
             setTimeout(() => {
                 const listContainer: HTMLElement = this.menuFoodList.nativeElement;
                 if (!listContainer.children[0].children.length) {
@@ -87,42 +106,6 @@ export class ShopFoodComponent implements OnInit, OnChanges {
         });
     }
 
-    initCategoryNum() {
-        const newArr = [];
-        let cartFoodNum = 0;
-        this.totalPrice = 0;
-        this.cartFoodList = [];
-        this.menuList.forEach((item, index) => {
-            if (this.shopCart && this.shopCart[item.foods[0].category_id]) {
-                let num = 0;
-                Object.keys(this.shopCart[item.foods[0].category_id]).forEach(itemid => {
-                    Object.keys(this.shopCart[item.foods[0].category_id][itemid]).forEach(foodid => {
-                        const foodItem = this.shopCart[item.foods[0].category_id][itemid][foodid];
-                        num += foodItem.num;
-                        if (item.type === 1) {
-                            this.totalPrice += foodItem.num * foodItem.price;
-                            if (foodItem.num > 0) {
-                                this.cartFoodList[cartFoodNum] = {};
-                                this.cartFoodList[cartFoodNum].category_id = item.foods[0].category_id;
-                                this.cartFoodList[cartFoodNum].item_id = itemid;
-                                this.cartFoodList[cartFoodNum].food_id = foodid;
-                                this.cartFoodList[cartFoodNum].num = foodItem.num;
-                                this.cartFoodList[cartFoodNum].price = foodItem.price;
-                                this.cartFoodList[cartFoodNum].name = foodItem.name;
-                                this.cartFoodList[cartFoodNum].specs = foodItem.specs;
-                                cartFoodNum++;
-                            }
-                        }
-                    });
-                });
-                newArr[index] = num;
-            } else {
-                newArr[index] = 0;
-            }
-        });
-        this.totalPrice = parseFloat(this.totalPrice.toFixed(2));
-        this.categoryNum = [...newArr];
-    }
 
     showTitleDetail(index: number) {
 
@@ -138,15 +121,17 @@ export class ShopFoodComponent implements OnInit, OnChanges {
     }
 
     clearCart() {
-
+        this.store$.dispatch(new ClearAllCartItem());
     }
 
     removeOutCart(item: CartItem) {
-        console.log(item);
+        // console.log(item);
+        this.store$.dispatch(new RemoveCartItem(item.item_id));
     }
 
     addToCart(item: CartItem) {
-        console.log(item);
+        // console.log(item);
+        this.store$.dispatch(new AddCartItem(item));
     }
 
     showMoveDot(item: { showMoveDot: boolean[], elLeft: number, elBottom: number }) {

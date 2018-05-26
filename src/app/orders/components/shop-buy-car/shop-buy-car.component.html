@@ -1,6 +1,6 @@
 <section class="buy_cart_container">
   <section (click)="toggleCartList()" class="cart_icon_num">
-    <div class="cart_icon_container" [class.cart_icon_activity]="totalPrice > 0" [class.move_in_cart]="receiveInCart" #cartContainer>
+    <div class="cart_icon_container" [class.cart_icon_activity]="shopCommData.totalPrice > 0" [class.move_in_cart]="receiveInCart" #cartContainer>
       <span *ngIf="totalNum" class="cart_list_length">
         {{totalNum}}
       </span>
@@ -9,8 +9,8 @@
       </svg>
     </div>
     <div class="cart_num">
-      <div>¥ {{totalPrice}}</div>
-      <div>配送费¥{{deliveryFee}}</div>
+      <div>¥ {{shopCommData.totalPrice}}</div>
+      <div>配送费¥{{shopDetailData?.float_delivery_fee}}</div>
     </div>
   </section>
   <section class="gotopay" [class.gotopay_acitvity]="minimumOrderAmount <= 0">
@@ -18,7 +18,7 @@
     <a [routerLink]="['/confirmOrder']" class="gotopay_button_style" *ngIf="!(minimumOrderAmount > 0)">去结算</a>
   </section>
 </section>
-<section class="cart_food_list" *ngIf="showCartList&&cartFoodList.length">
+<section class="cart_food_list" *ngIf="showCartList&&shopCommData.cartFoodList.length">
   <header>
     <h4>购物车</h4>
     <div (click)="_clearCart()">
@@ -30,7 +30,7 @@
   </header>
   <section class="cart_food_details" id="cartFood">
     <ul>
-      <li *ngFor="let item of cartFoodList" class="cart_food_li">
+      <li *ngFor="let item of shopCommData.cartFoodList" class="cart_food_li">
         <div class="cart_list_num">
           <p class="ellipsis">{{item.name}}</p>
           <p class="ellipsis">{{item.specs}}</p>

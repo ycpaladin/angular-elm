@@ -36,10 +36,7 @@ export class HomeEffect {
       mergeMap(position => combineLatest([this.position$.saveToLocal(position), this.cityHistory$.add(position)]).pipe(
         map(([r1, r2]) => new LoadPositionSucess(position))
       )),
-      catchError(e => {
-        console.error(e);
-        return of(new LoadPositionFail(e));
-      })
+      catchError(e => of(new LoadPositionFail(e)))
     ))
   );
 

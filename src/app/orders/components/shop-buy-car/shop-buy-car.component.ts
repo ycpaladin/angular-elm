@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { ShopDetials } from '../../models';
+import { ShopDetials, CartFood, ShopCommData } from '../../models';
 
 @Component({
     selector: 'app-shop-buy-car',
@@ -7,23 +7,23 @@ import { ShopDetials } from '../../models';
     styleUrls: ['./shop-buy-car.component.scss']
 })
 export class ShopBuyCarComponent implements OnInit {
-    cartFoodList: any[];
-    totalPrice = 0;
+
     titleDetailIndex: number;
-    totalNum: number;
-    deliveryFee: number;
     // minimumOrderAmount: number;
     showCartList: boolean;
     receiveInCart: boolean;
 
     @Input() shopDetailData: ShopDetials;
+    @Input() shopCommData: ShopCommData;
+    @Input() totalPrice: number;
+    @Input() totalNum: number;
     @Output() clearCart = new EventEmitter<void>();
     constructor() { }
 
 
     get minimumOrderAmount(): number {
         if (this.shopDetailData) {
-            return this.shopDetailData.float_minimum_order_amount - this.totalPrice;
+            return this.shopDetailData.float_minimum_order_amount - this.shopCommData.totalPrice;
         } else {
             return null;
         }

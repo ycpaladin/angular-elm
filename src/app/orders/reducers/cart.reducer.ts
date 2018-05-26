@@ -13,13 +13,18 @@ export interface State {
      * 购物车中的物品
      */
     items: CartItem[];
+    /**
+     * 购物车总价
+     */
+    totalPrice: number;
 }
 
 /**
  * 默认初始购物车
  */
 const initialState: State = {
-    items: []
+    items: [],
+    totalPrice: 0
 };
 
 
@@ -43,3 +48,12 @@ export function reducer(state: State = initialState, action: Actions): State {
  * @param state 状态
  */
 export const getCartItems = (state: State) => state.items;
+export const getTotalPrice = (state: State) => {
+    let total = 0;
+    state.items.forEach((item) => {
+        total += item.price;
+    });
+
+    return total;
+};
+

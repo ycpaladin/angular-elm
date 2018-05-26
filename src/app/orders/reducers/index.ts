@@ -6,6 +6,7 @@ import * as fromShop from './shop.reducer';
 import * as fromCart from './cart.reducer';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import { RouterReducerState, routerReducer } from '@ngrx/router-store';
+import { ShopCommData } from '../models';
 
 export interface OrderState {
     home: fromHome.State;
@@ -61,6 +62,8 @@ export const getShopScores = createSelector(shopState, fromShop.getScores);
 export const getShopTags = createSelector(shopState, fromShop.getTags);
 export const getShopDetials = createSelector(shopState, fromShop.getDetials);
 
+
+
 // export const getFoodById = createSelector(
 //     getShopCategories,
 //     getFoodId,
@@ -68,6 +71,51 @@ export const getShopDetials = createSelector(shopState, fromShop.getDetials);
 
 export const cartState = createSelector(getOrderState, state => state.cart);
 export const getCartItems = createSelector(cartState, fromCart.getCartItems);
+export const getTotalPrice = createSelector(cartState, fromCart.getTotalPrice);
 
 export { getPosition, getPositionName, getGeohash } from '../../store';
+
+export const getShopCommData = createSelector(
+    getShopCategories,
+    getCartItems,
+    getTotalPrice,
+    (menuList, shopCart, totalPrice) => {
+        const r: ShopCommData = { totalPrice, cartFoodList: [], categoryNum: [] };
+        // let cartFoodNum = 0;
+        // menuList.forEach((item, index) => {
+        //     if (shopCart && shopCart.length) {
+        //         let num = 0;
+        //         // Object.keys(shopCart[item.foods[0].category_id]).forEach(itemid => {
+        //         // Object.keys(shopCart[item.foods[0].category_id][itemid]).forEach(foodid => {
+        //         shopCart.forEach((cartItem) => {
+
+        //         });
+        //         const foodItem = shopCart[item.foods[0].category_id][itemid][foodid];
+        //         num += foodItem.num;
+        //         if (item.type === 1) {
+        //             r.totalPrice += foodItem.num * foodItem.price;
+        //             if (foodItem.num > 0) {
+        //                 r.cartFoodList[cartFoodNum] = {
+        //                     category_id: item.foods[0].category_id,
+        //                     item_id: itemid,
+        //                     food_id: foodid,
+        //                     num: foodItem.num,
+        //                     price: foodItem.price,
+        //                     name: foodItem.name,
+        //                     specs: foodItem.specs
+        //                 };
+        //                 cartFoodNum++;
+        //             }
+        //         }
+        //         // });
+        //         // });
+        //         r.categoryNum[index] = num;
+        //     } else {
+        //         r.categoryNum[index] = 0;
+        //     }
+        // });
+        r.totalPrice = parseFloat(r.totalPrice.toFixed(2));
+        return r;
+    }
+);
 

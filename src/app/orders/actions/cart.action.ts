@@ -55,7 +55,7 @@ export class AddCartItemFail implements Action {
 
 export class RemoveCartItem implements Action {
     readonly type = CartActionTypes.REMOVE_CART_ITEM;
-    constructor(public id: number, public shopId: string) { }
+    constructor(public id: number) { }
 }
 
 export class RemoveCartItemSucess implements Action {
@@ -71,7 +71,7 @@ export class RemoveCartItemFail implements Action {
 
 export class ClearAllCartItem implements Action {
     readonly type = CartActionTypes.CLEAR_ALL_CART_ITEMS;
-    constructor(public shopId: string) { }
+    constructor() { }
 }
 
 export class ClearAllCartItemSucess implements Action {

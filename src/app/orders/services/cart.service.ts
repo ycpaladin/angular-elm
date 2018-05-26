@@ -3,7 +3,7 @@ import Dexie from 'dexie';
 import { CartItem } from '../models/cart';
 import { IndexDbBaseService } from '../../services/indexDb.service';
 import { Observable, forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -35,23 +35,33 @@ export class CartService {
     }
 
     addOneAndGetAll(item: CartItem): Observable<CartItem[]> {
-        return forkJoin([this.addOne(item), this.getAll(item.shopId)]).pipe(
-            map(([, items]) => items)
+        // return forkJoin([this.addOne(item), this.getAll(item.shopId)]).pipe(
+        //     map(([, items]) => items)
+        // );
+
+        return this.addOne(item).pipe(
+            mergeMap(() => this.getAll(item.shopId))
         );
     }
 
-    removeOne(id: number): Observable<boolean> {
+    removeOne(item_id: number): Observable<boolean> {
         return new Observable<boolean>(observer => {
-            this.table.delete(id).then(() => {
-                observer.next(true);
-            }).catch(e => observer.error(e)).finally(() => observer.complete());
+            this.table.filter(t => t.item_id === item_id).first().then(d => {
+                this.table.delete(d.id).then(() => {
+                    observer.next(true);
+                }).catch(e => observer.error(e)).finally(() => observer.complete());
+            });
             return () => { };
         });
     }
 
-    removeOneAndGetAll(id: number, shopId: string): Observable<CartItem[]> {
-        return forkJoin([this.removeOne(id), this.getAll(shopId)]).pipe(
-            map(([, items]) => items)
+    removeOneAndGetAll(item_id: number, shopId: string): Observable<CartItem[]> {
+        // return forkJoin([this.removeOne(item_id), this.getAll(shopId)]).pipe(
+        //     map(([, items]) => items)
+        // );
+
+        return this.removeOne(item_id).pipe(
+            mergeMap(() => this.getAll(shopId))
         );
     }
 

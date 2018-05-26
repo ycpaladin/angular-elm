@@ -2,16 +2,16 @@
 <section class="menu_container">
   <section class="menu_left" #wrapperMenu>
     <ul>
-      <li *ngFor="let item of menuList; let index = index" class="menu_left_li" [class.activity_menu]="index === menuIndex" (click)="chooseMenu(index)">
+      <li *ngFor="let item of menuList | async; let index = index" class="menu_left_li" [class.activity_menu]="index === menuIndex" (click)="chooseMenu(index)">
         <img [attr.src]="item.icon_url | imagePath" *ngIf="item.icon_url">
         <span>{{item.name}}</span>
-        <span class="category_num" *ngIf="categoryNum&&categoryNum[index]&&item.type==1">{{categoryNum[index]}}</span>
+        <span class="category_num" *ngIf="(shopCommData | async)?.categoryNum[index]&&item.type==1">{{(shopCommData | async).categoryNum[index]}}</span>
       </li>
     </ul>
   </section>
   <section class="menu_right" #menuFoodList>
     <ul>
-      <li *ngFor="let item of menuList; let index = index; let last = last">
+      <li *ngFor="let item of menuList | async; let index = index; let last = last">
         <header class="menu_detail_header">
           <section class="menu_detail_header_left">
             <strong class="menu_item_title">{{item.name}}</strong>
@@ -55,9 +55,7 @@
               <span>{{foods.specfoods[0].price}}</span>
               <span *ngIf="foods.specifications.length">起</span>
             </section>
-            <!-- <buy-cart :shopId='shopId' :foods='foods' @moveInCart="listenInCart" @showChooseList="showChooseList" @showReduceTip="showReduceTip"
-                    @showMoveDot="showMoveDotFun"></buy-cart>  -->
-            <app-add-to-cart [foods]="foods" [shopId]="(router$.params | async)['shopId']" (showReduceTip)="showReduceTip($event)" (showChooseList)="showChooseList($event)"
+            <app-add-to-cart [foods]="foods" [shopCart]="shoppingCart | async" [shopId]="(router$.params | async)['shopId']" (showReduceTip)="showReduceTip($event)" (showChooseList)="showChooseList($event)"
               (addToCart)="addToCart($event)" (removeOutCart)="removeOutCart($event)" (showMoveDot)="showMoveDot($event)"></app-add-to-cart>
           </footer>
         </section>
@@ -66,6 +64,6 @@
     </ul>
   </section>
 </section>
-<app-shop-buy-car [shopDetailData]="shopDetailData" *ngIf="!showLoading"></app-shop-buy-car>
+<app-shop-buy-car [shopDetailData]="shopDetailData" *ngIf="!showLoading" [shopCommData]="shopCommData | async" [totalNum]="(shoppingCart | async).length" (clearCart)="clearCart($event)"></app-shop-buy-car>
 <!-- <div class="screen_cover" v-show="showCartList&&cartFoodList.length" (click)="toggleCartList()"></div> -->
 <!-- </section> -->
