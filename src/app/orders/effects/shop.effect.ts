@@ -40,7 +40,7 @@ export class ShopEffect {
         catchError(e => of(new LoadShopRatingsFail(e)))
     );
 
-    @Effect() loadShopScores$: Observable<Action> = this.actions$.pipe(
+    @Effect() loadShopScores$ = this.actions$.pipe(
         ofType<LoadShopScores>(ShopActionTypes.LOAD_SHOP_SCORES),
         withLatestFrom(this.store$.pipe(select(fromOrder.getShopId))),
         mergeMap(([, restaurant_id]) => this.service$.getScores(restaurant_id).pipe(
@@ -49,7 +49,7 @@ export class ShopEffect {
         catchError(e => of(new LoadShopScoresFail(e)))
     );
 
-    @Effect() loadShopTags$: Observable<Action> = this.actions$.pipe(
+    @Effect() loadShopTags$ = this.actions$.pipe(
         ofType<LoadShopTags>(ShopActionTypes.LOAD_SHOP_TAGS),
         withLatestFrom(this.store$.pipe(select(fromOrder.getShopId))),
         mergeMap(([, restaurant_id]) => this.service$.getTags(restaurant_id).pipe(
