@@ -1,15 +1,12 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { ShopDetials, ShopCategory, Food, ShopCommData } from '../../models';
-import 'better-scroll';
+import BScroll from 'better-scroll';
 import { CartItem } from '../../models/cart';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import * as fromOrder from '../../reducers';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { ClearAllCartItem, AddCartItem, RemoveCartItem } from '../../actions/cart.action';
-
-declare let BScroll: BScrollStatic;
 
 @Component({
     selector: 'app-shop-food',
@@ -19,8 +16,8 @@ declare let BScroll: BScrollStatic;
 export class ShopFoodComponent implements OnInit, OnChanges {
 
 
-    @ViewChild('wrapperMenu') wrapperMenu: ElementRef;
-    @ViewChild('menuFoodList') menuFoodList: ElementRef;
+    @ViewChild('wrapperMenu', { static: true }) wrapperMenu: ElementRef;
+    @ViewChild('menuFoodList', { static: true }) menuFoodList: ElementRef;
     menuList: Observable<ShopCategory[]>;
     shopCommData: Observable<ShopCommData>;
     // shoppingCart: Observable<CartItem[]>;
@@ -110,8 +107,8 @@ export class ShopFoodComponent implements OnInit, OnChanges {
         this.store$.dispatch(new ClearAllCartItem());
     }
 
-    removeOutCart(item_id: number) {
-        this.store$.dispatch(new RemoveCartItem(item_id));
+    removeOutCart(itemId: number) {
+        this.store$.dispatch(new RemoveCartItem(itemId));
     }
 
     addToCart(item: CartItem) {

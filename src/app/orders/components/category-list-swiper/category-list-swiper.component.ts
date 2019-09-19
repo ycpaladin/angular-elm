@@ -11,8 +11,8 @@ import Swiper from 'swiper';
 export class CategoryListSwiperComponent implements OnInit, AfterViewInit {
 
 
-  @ViewChild('swiperContainer') swiperContainer: ElementRef;
-  @ViewChild('swiperPagination') swiperPagination: ElementRef;
+  @ViewChild('swiperContainer', { static: true }) swiperContainer: ElementRef;
+  @ViewChild('swiperPagination', { static: true }) swiperPagination: ElementRef;
 
   @Input() foodTypes: Category[][];
   constructor() {

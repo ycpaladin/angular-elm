@@ -30,7 +30,7 @@ export class CityHistoryService {
     return new Observable<boolean>(observer => {
       this.table.filter(t => t.geohash === data.geohash).first().then(t => {
         if (!t) {
-          this.table.add(<CityHistoryWithId>data).then(() => {
+          this.table.add(data as CityHistoryWithId).then(() => {
             observer.next(true);
           }).catch(e => {
             console.log('add to cityHistory error:', e);

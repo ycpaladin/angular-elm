@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { ShopCategory, ShopRating, ShopTag, ShopScore, ShopDetials } from '../models';
 import { eleServerUrl } from '../../../environments/environment';
 
+const defaultExtra = ['activities', 'album', 'license', 'identification', 'statistics'];
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,11 +13,10 @@ export class ShopService {
 
   constructor(private http$: HttpClient) { }
 
-  getShopDetails(restaurant_id: string, latitude: string, longitude: string,
-    extras: string[] = ['activities', 'album', 'license', 'identification', 'statistics']): Observable<ShopDetials> {
+  getShopDetails(restaurantId: number, latitude: string, longitude: string, extras: string[] = defaultExtra): Observable<ShopDetials> {
     // https://elm.cangdu.org/shopping/restaurant/1
     // ?latitude=45.7814&longitude=126.70353&extras[]=activities&extras[]=album&extras[]=license&extras[]=identification&extras[]=statistics
-    return this.http$.get<ShopDetials>(`${eleServerUrl}/shopping/restaurant/${restaurant_id}`, {
+    return this.http$.get<ShopDetials>(`${eleServerUrl}/shopping/restaurant/${restaurantId}`, {
       params: {
         latitude,
         longitude,
@@ -26,54 +27,54 @@ export class ShopService {
 
   /**
    * 获取商家销售的所有外卖
-   * @param restaurant_id 商家ID
+   * @param restaurantId 商家ID
    */
-  getShopCategories(restaurant_id: string): Observable<ShopCategory[]> {
+  getShopCategories(restaurantId: number): Observable<ShopCategory[]> {
     return this.http$.get<ShopCategory[]>(`${eleServerUrl}/shopping/v2/menu`, {
       params: {
-        restaurant_id
+        restaurantId: restaurantId + ''
       }
     });
   }
 
   /**
    * 获取商家评论
-   * @param restaurant_id 商家ID
-   * @param has_content ？默认为true字符串
+   * @param restaurantId 商家ID
+   * @param hasContent ？默认为true字符串
    * @param offset 默认为0
    * @param limit 默认为10
-   * @param tag_name 标签名称?
+   * @param tagName 标签名称?
    */
   getRatings(
-    restaurant_id: string,
-    has_content: string = 'true',
+    restaurantId: number,
+    hasContent: string = 'true',
     offset: string = '0',
     limit: string = '10',
-    tag_name: string = ''): Observable<ShopRating[]> {
-    return this.http$.get<ShopRating[]>(`${eleServerUrl}/ugc/v2/restaurants/${restaurant_id}/ratings`, {
+    tagName: string = ''): Observable<ShopRating[]> {
+    return this.http$.get<ShopRating[]>(`${eleServerUrl}/ugc/v2/restaurants/${restaurantId}/ratings`, {
       params: {
-        has_content,
+        hasContent,
         offset,
         limit,
-        tag_name
+        tagName
       }
     });
   }
 
   /**
    * 获取商家标签
-   * @param restaurant_id 商家ID
+   * @param restaurantId 商家ID
    */
-  getTags(restaurant_id: string): Observable<ShopTag[]> {
-    return this.http$.get<ShopTag[]>(`${eleServerUrl}/ugc/v2/restaurants/${restaurant_id}/ratings/tags`);
+  getTags(restaurantId: number): Observable<ShopTag[]> {
+    return this.http$.get<ShopTag[]>(`${eleServerUrl}/ugc/v2/restaurants/${restaurantId}/ratings/tags`);
   }
 
   /**
    * 获取商家评分
-   * @param restaurant_id 商家ID
+   * @param restaurantId 商家ID
    */
-  getScores(restaurant_id: string): Observable<ShopScore> {
-    return this.http$.get<ShopScore>(`${eleServerUrl}/ugc/v2/restaurants/${restaurant_id}/ratings/scores`);
+  getScores(restaurantId: number): Observable<ShopScore> {
+    return this.http$.get<ShopScore>(`${eleServerUrl}/ugc/v2/restaurants/${restaurantId}/ratings/scores`);
   }
 
 

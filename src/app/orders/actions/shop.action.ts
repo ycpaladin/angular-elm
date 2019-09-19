@@ -24,10 +24,10 @@ export class LoadShopData implements Action {
   readonly type = ShopActionTypes.LOAD_SHOP_DATA;
   /**
    * 加载商家的外卖
-   * @param restaurant_id 商家ID
+   * @param restaurantId 商家ID
    * @param refresh 从服务端加载
    */
-  constructor(public restaurant_id: number, public refreshFromServer: boolean = true) { }
+  constructor(public restaurantId: number, public refreshFromServer: boolean = true) { }
 }
 
 export class LoadShopDataSucess implements Action {

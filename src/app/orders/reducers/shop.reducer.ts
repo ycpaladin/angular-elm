@@ -26,28 +26,29 @@ const initialState: State = {
 // function
 
 export function reducer(state: State = initialState, action: Actions): State {
+    const restaurant = getCurrentRestaurant(state);
     switch (action.type) {
         case ShopActionTypes.LOAD_SHOP_DATA:
             return Object.assign({}, state, {
-                restaurant_id: action.restaurant_id
+                restaurant_id: action.restaurantId
             });
         case ShopActionTypes.LOAD_SHOP_DATA_SUCESS:
-            const restaurant = getCurrentRestaurant(state);
+            // const restaurant = getCurrentRestaurant(state);
             restaurant.categories = action.data.categories;
             restaurant.detials = action.data.detials;
             return getNewState(state, restaurant);
         case ShopActionTypes.LOAD_SHOP_RATING_SUCESS:
-            const _restaurant = getCurrentRestaurant(state);
-            _restaurant.ratings = action.data;
-            return getNewState(state, _restaurant);
+            // const restaurant1 = getCurrentRestaurant(state);
+            restaurant.ratings = action.data;
+            return getNewState(state, restaurant);
         case ShopActionTypes.LOAD_SHOP_SCORES_SUCESS:
-            const __restaurant = getCurrentRestaurant(state);
-            _restaurant.scores = action.data;
-            return getNewState(state, __restaurant);
+            // const __restaurrestaurantant = getCurrentRestaurant(state);
+            restaurant.scores = action.data;
+            return getNewState(state, restaurant);
         case ShopActionTypes.LOAD_SHOP_TAGS_SUCESS:
-            const ___restaurant = getCurrentRestaurant(state);
-            _restaurant.tags = action.data;
-            return getNewState(state, ___restaurant);
+            // const ___restaurant = getCurrentRestaurant(state);
+            restaurant.tags = action.data;
+            return getNewState(state, restaurant);
         default:
             return state;
     }

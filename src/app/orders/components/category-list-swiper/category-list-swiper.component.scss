@@ -1,5 +1,5 @@
 @import '../../../../assets/mixin.scss';
-@import '../../../../../node_modules/swiper/dist/css/swiper.min.css';
+@import '../../../../assets/swiper.min.css';
 
 .swiper-container {
   @include wh(100%, auto);

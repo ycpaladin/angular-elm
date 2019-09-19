@@ -43,7 +43,7 @@ export class PositionService {
       this.table.filter(t => t.geohash === position.geohash).first().then(d => {
         if (!d) {
           this.table.clear().then(() => {
-            this.table.add(<PositionWithId>position).then(() => {
+            this.table.add(position as PositionWithId).then(() => {
               observer.next(true);
             });
           });
