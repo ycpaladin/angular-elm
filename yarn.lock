@@ -1165,25 +1165,33 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.7.0"
 
-"@ngrx/effects@^8.3.0":
-  version "8.3.0"
-  resolved "https://registry.npm.taobao.org/@ngrx/effects/download/@ngrx/effects-8.3.0.tgz#d99a777ab352d4efdf456a7dec307514187ba496"
-  integrity sha1-2Zp3erNS1O/fRWp97DB1FBh7pJY=
+"@ngrx/effects@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.npm.taobao.org/@ngrx/effects/download/@ngrx/effects-10.0.0.tgz#d58151b1d7f5731ea42de7ed239bbab3d5866542"
+  integrity sha1-1YFRsdf1cx6kLeftI5u6s9WGZUI=
+  dependencies:
+    tslib "^2.0.0"
 
-"@ngrx/router-store@^8.3.0":
-  version "8.3.0"
-  resolved "https://registry.npm.taobao.org/@ngrx/router-store/download/@ngrx/router-store-8.3.0.tgz#18462b7901843b3ab212459ffbd6cfe2b71e87e4"
-  integrity sha1-GEYreQGEOzqyEkWf+9bP4rceh+Q=
+"@ngrx/router-store@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.npm.taobao.org/@ngrx/router-store/download/@ngrx/router-store-10.0.0.tgz#e162e69da138f5a3e2d194f9e81d76d117cd2124"
+  integrity sha1-4WLmnaE49aPi0ZT56B120RfNISQ=
+  dependencies:
+    tslib "^2.0.0"
 
-"@ngrx/store-devtools@^8.3.0":
-  version "8.3.0"
-  resolved "https://registry.npm.taobao.org/@ngrx/store-devtools/download/@ngrx/store-devtools-8.3.0.tgz#c9e9f5bd9fe7e32c605d3a85888d4da91a582b02"
-  integrity sha1-yen1vZ/n4yxgXTqFiI1NqRpYKwI=
+"@ngrx/store-devtools@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.npm.taobao.org/@ngrx/store-devtools/download/@ngrx/store-devtools-10.0.0.tgz#018716afd3df89bd2fa1f603966878f82e80d727"
+  integrity sha1-AYcWr9Pfib0vofYDlmh4+C6A1yc=
+  dependencies:
+    tslib "^2.0.0"
 
-"@ngrx/store@^8.3.0":
-  version "8.3.0"
-  resolved "https://registry.npm.taobao.org/@ngrx/store/download/@ngrx/store-8.3.0.tgz#f2eaf428ec9e8379801cc37e3f6bffe88c2af472"
-  integrity sha1-8ur0KOyeg3mAHMN+P2v/6Iwq9HI=
+"@ngrx/store@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.npm.taobao.org/@ngrx/store/download/@ngrx/store-10.0.0.tgz#a355f0fdf6129b78b82fb57cacdb277bde0de066"
+  integrity sha1-o1Xw/fYSm3i4L7V8rNsne94N4GY=
+  dependencies:
+    tslib "^2.0.0"
 
 "@ngtools/webpack@10.1.1":
   version "10.1.1"

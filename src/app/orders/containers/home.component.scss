@@ -1,4 +1,4 @@
-@import '../../../assets/mixin';
+@import '../../../assets/_mixin.scss';
 // @import '../../../../node_modules/swiper/dist/css/swiper.min.css';
 
 .link_search {
@@ -25,7 +25,7 @@
   background-color: #fff;
   border-bottom: 0.025rem solid $bc;
   height: 10.6rem;
- 
+
   .fl_back {
     @include wh(100%, 100%);
   }
