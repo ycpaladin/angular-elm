@@ -4,9 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'city' },
-  { path: 'city', loadChildren: './city/city.module#CityModule' },
-  { path: 'msite', loadChildren: './orders/orders.module#OrdersModule' },
-  { path: 'my', loadChildren: './mine/mine.module#MineModule' },
+  { path: 'city', loadChildren: () => import('./city/city.module').then(m => m.CityModule) },
+  { path: 'msite', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule) },
+  { path: 'my', loadChildren: () => import('./mine/mine.module').then(m => m.MineModule) },
 ];
 
 @NgModule({
