@@ -12,15 +12,15 @@ import { HomeService } from '../services/home.service';
 })
 export class HomeEffects {
 
-  constructor(private actions$: Actions, private service$: HomeService) {
+  constructor(private actions$: Actions, private service: HomeService) {
   }
 
   @Effect() $defer: Observable<Action> = defer(
-    () => forkJoin([this.service$.getGuessCity(), this.service$.getHotCities(), this.service$.getCityGroup()])
+    () => forkJoin([this.service.getGuessCity(), this.service.getHotCities(), this.service.getCityGroup()])
       .pipe(
         map(([guess, hot, group]) => new LoadCityDataSucess({ guess, hot, group })),
         tap((action) => {
-          this.service$.saveToLocal(action.data.group);
+          this.service.saveToLocal(action.data.group);
         }),
         catchError(error => of(new LoadCityDataFail('出现错误.')))
       )

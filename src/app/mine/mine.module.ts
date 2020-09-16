@@ -1,3 +1,4 @@
+import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './containers/login.component';
@@ -9,13 +10,20 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BenefitComponent } from './containers/benefit.component';
 
+const routes: Routes = [
+  { path: 'order', component: OrderComponent },
+  { path: 'profile', component: OrderComponent }
+];
+
+
 @NgModule({
-    imports: [
-        CommonModule,
-        ComponentsModule,
-        HttpClientModule,
-        FormsModule,
-    ],
-    declarations: [LoginComponent, RegisterComponent, OrderComponent, OrderListComponent, BenefitComponent]
+  imports: [
+    CommonModule,
+    ComponentsModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forChild(routes)
+  ],
+  declarations: [LoginComponent, RegisterComponent, OrderComponent, OrderListComponent, BenefitComponent]
 })
 export class MineModule { }

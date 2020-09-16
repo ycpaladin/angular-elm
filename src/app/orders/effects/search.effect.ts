@@ -16,7 +16,7 @@ import { ClearHistoryList } from '../../city/actions/search.action';
 })
 export class SearchEffect {
 
-    constructor(private actions$: Actions, private service$: SearchService, private store$: Store<fromOrder.State>) {
+    constructor(private actions$: Actions, private store$: Store<fromOrder.State>, private searchService: SearchService) {
 
     }
 
@@ -27,7 +27,7 @@ export class SearchEffect {
     @Effect() loadSearchHistory$: Observable<Action> = this.actions$.pipe(
         ofType<LoadSearchHistory>(OrderSearchActionTypes.LOAD_SEARCH_HISTORY),
         mergeMap(() =>
-            this.service$.getSearchHistory()
+            this.searchService.getSearchHistory()
                 .pipe(
                     map(d => new LoadSearchHistorySucess(d)),
             )),
@@ -38,7 +38,7 @@ export class SearchEffect {
         ofType<Search>(OrderSearchActionTypes.SEARCH_FETCHING),
         map(action => action.keyword),
         withLatestFrom(this.store$.pipe(select(fromOrder.getPosition))),
-        switchMap(([keyword, { geohash }]) => this.service$.getSearchResult(geohash, keyword).pipe(
+        switchMap(([keyword, { geohash }]) => this.searchService.getSearchResult(geohash, keyword).pipe(
             map(d => new SearchSucess(d)),
             catchError(e => of(new SearchFail(e)))
         ))
@@ -46,8 +46,8 @@ export class SearchEffect {
 
     @Effect() clearSearchHistory$: Observable<Action> = this.actions$.pipe(
         ofType<ClearHistoryList>(OrderSearchActionTypes.CLEAR_SEARCH_HISTORY),
-        mergeMap(() => this.service$.clearSearchHistory().pipe(
-            mergeMap(() => this.service$.getSearchHistory().pipe(
+        mergeMap(() => this.searchService.clearSearchHistory().pipe(
+            mergeMap(() => this.searchService.getSearchHistory().pipe(
                 map(d => new LoadSearchHistorySucess(d))
             ))
         )),
@@ -57,8 +57,8 @@ export class SearchEffect {
     @Effect() deleteSearchHistory$: Observable<Action> = this.actions$.pipe(
         ofType<DeleteSearchHistory>(OrderSearchActionTypes.DELETE_SEARCH_HISTORY),
         map(action => action.id),
-        mergeMap(id => this.service$.deleteSearchHistory(id).pipe(
-            mergeMap(() => this.service$.getSearchHistory().pipe(
+        mergeMap(id => this.searchService.deleteSearchHistory(id).pipe(
+            mergeMap(() => this.searchService.getSearchHistory().pipe(
                 map(d => new LoadSearchHistorySucess(d))
             ))
         )),

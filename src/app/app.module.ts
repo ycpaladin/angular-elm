@@ -10,7 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './store';
 // import { reducers, CustomSerializer } from './store/router.reducer';
-import { StoreRouterConnectingModule, RouterStateSerializer, DefaultRouterStateSerializer } from '@ngrx/router-store';
+import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 // import { CustomSerializer } from './shared/unils';
 import { CoreModule } from './core/core.module';
 import { PositionEffect } from './core/effects/position.effect';
@@ -33,12 +33,13 @@ import { PositionEffect } from './core/effects/position.effect';
     EffectsModule.forRoot([PositionEffect]),
     ComponentsModule,
     CoreModule,
-    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer,
-        stateKey: 'router',
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router',
+      routerState: RouterState.Minimal
     }),
     StoreDevtoolsModule.instrument({
-        maxAge: 20,
-        name: 'elm store'
+      maxAge: 20,
+      name: 'elm store'
     })
   ],
   providers: [],

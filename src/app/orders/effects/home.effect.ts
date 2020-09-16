@@ -12,6 +12,7 @@ import * as fromRoute from '@ngrx/router-store';
 import { PositionService } from '../../core/services/position.service';
 import { LoadPositionSucess, LoadPositionFail } from '../../core/actions/position.action';
 import { CityHistoryService } from '../../services/city-history.service';
+import { getRouterState } from 'src/app/shared/unils';
 
 @Injectable({
   providedIn: 'root'
@@ -21,19 +22,20 @@ export class HomeEffect {
   // https://github.com/BioPhoton/angular-ngrx-refactoring.git
   constructor(
     private actions$: Actions,
-    private service$: HomeService,
-    private position$: PositionService,
-    private cityHistory$: CityHistoryService,
-    private store$: Store<fromOrder.State>) {
+    private store$: Store<fromOrder.State>,
+    private homeService: HomeService,
+    private positionService: PositionService,
+    private cityHistoryService: CityHistoryService,
+  ) {
   }
 
   @Effect() r$: Observable<Action> = this.actions$.pipe(
     ofType(fromRoute.ROUTER_NAVIGATION),
     map((action: any) => action.payload),
     filter((payload: any) => payload.event.url.indexOf('/msite/home') !== -1),
-    map((payload: any) => payload.routerState),
-    switchMap(({ params }) => this.position$.getPositionFromServer(params['geohash']).pipe(
-      mergeMap(position => combineLatest([this.position$.saveToLocal(position), this.cityHistory$.add(position)]).pipe(
+    map((payload: any) => getRouterState(payload.routerState.root)),
+    switchMap((params) => this.positionService.getPositionFromServer(params.geohash).pipe(
+      mergeMap(position => combineLatest([this.positionService.saveToLocal(position), this.cityHistoryService.add(position)]).pipe(
         map(([r1, r2]) => new LoadPositionSucess(position))
       )),
       catchError(e => of(new LoadPositionFail(e)))
@@ -41,14 +43,14 @@ export class HomeEffect {
   );
 
 
-  @Effect() loadPosition$: Observable<Action> = this.actions$.pipe(
+  @Effect() loadpositionService: Observable<Action> = this.actions$.pipe(
     ofType<LoadHomeData>(HomeActionTypes.LOAD_HOME_DATA),
     // withLatestFrom(this.store$.pipe(select(fromOrder.getGeohash))),
     map(action => action.geohash), // 在这里要从路由中get，不能从store中get, 可能不一致
-    mergeMap((geohash) => forkJoin([this.service$.getCategories(geohash), this.service$.searchShop(geohash)])
+    mergeMap((geohash) => forkJoin([this.homeService.getCategories(geohash), this.homeService.searchShop(geohash)])
       .pipe(
         map(([categories, shopList]) => new LoadHomeDataSucess(categories, shopList)),
-    )),
+      )),
     catchError(e => of(new LoadHomeDataFail(e)))
   );
 
