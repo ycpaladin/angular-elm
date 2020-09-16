@@ -17,7 +17,7 @@
 <section id="hot_city_container">
   <h4 class="city_title">热门城市</h4>
   <ul class="citylistul clear">
-    <li *ngFor="let item of hotCities | async" [routerLink]="['/city/search', item.id]">
+    <li *ngFor="let item of hotCities$ | async" [routerLink]="['/city/search', item.id]">
       {{ item.name}}
     </li>
   </ul>

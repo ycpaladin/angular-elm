@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ChangeCity } from '../actions/home.actions';
 
 @Component({
-  selector: 'app-city-search',
+  // selector: 'app-city-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
