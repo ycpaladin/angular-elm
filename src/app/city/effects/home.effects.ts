@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, forkJoin, of, defer } from 'rxjs';
 import { Action } from '@ngrx/store';
 import { map, mergeMap, switchMap, catchError, tap } from 'rxjs/operators';
@@ -15,7 +15,7 @@ export class HomeEffects {
   constructor(private actions$: Actions, private service: HomeService) {
   }
 
-  @Effect() $defer: Observable<Action> = defer(
+   $defer: Observable<Action> = createEffect(() => defer(
     () => forkJoin([this.service.getGuessCity(), this.service.getHotCities(), this.service.getCityGroup()])
       .pipe(
         map(([guess, hot, group]) => new LoadCityDataSucess({ guess, hot, group })),
@@ -24,7 +24,7 @@ export class HomeEffects {
         }),
         catchError(error => of(new LoadCityDataFail('出现错误.')))
       )
-  );
+  ));
 
 
 }

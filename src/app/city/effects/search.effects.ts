@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SearchService } from '../services/search.service';
-import { Effect, ofType, Actions } from '@ngrx/effects';
+import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { Action, Store, select } from '@ngrx/store';
 import * as cityStore from '../reducers';
 import {
@@ -21,7 +21,7 @@ export class SearchEffects {
         private service$: SearchService,
         private cityHistoryService$: CityHistoryService) { }
 
-    @Effect() $getSearchHistory: Observable<Action> = this.actions$.pipe(
+     $getSearchHistory: Observable<Action> = createEffect(() => this.actions$.pipe(
         ofType(SearchActionTypes.GET_SEARCH_HISTORY_LIST),
         switchMap(() => this.cityHistoryService$.getSearchHistory()
             .pipe(
@@ -29,9 +29,9 @@ export class SearchEffects {
             // catchError(e=> of(new ))
         )
         )
-    );
+    ));
 
-    @Effect() $search: Observable<Action> = this.actions$.pipe(
+     $search: Observable<Action> = createEffect(() => this.actions$.pipe(
         ofType<SearchPosition>(SearchActionTypes.SEARCH_POSITION),
         map(action => action.keyword),
         withLatestFrom(
@@ -44,13 +44,13 @@ export class SearchEffects {
                 map(data => new SearchPositionSucess(data)),
                 catchError(e => of(new SearchPositionFail(e)))
             ))
-    );
+    ));
 
-    @Effect() $clearHistory: Observable<Action> = this.actions$.pipe(
+     $clearHistory: Observable<Action> = createEffect(() => this.actions$.pipe(
         ofType<ClearHistoryList>(SearchActionTypes.CLEAR_SEARCH_HISTORY),
         switchMap(() => this.cityHistoryService$.clear().pipe(
             map(r => new ClearHistoryListSucess()),
             catchError(e => of(new ClearHistoryListFail(e)))
         ))
-    );
+    ));
 }

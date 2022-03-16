@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { Action, Store, select } from '@ngrx/store';
 import {
@@ -21,7 +21,7 @@ export class CartEffect {
   constructor(private actions$: Actions, private store$: Store<fromOrder.State>, private cartService: CartService) { }
 
 
-  @Effect({ dispatch: true }) router$ = this.actions$.pipe(
+   router$ = createEffect(() => this.actions$.pipe(
     ofType(fromRouter.ROUTER_NAVIGATION),
     map((action: any) => action.payload),
     filter((payload: any) => payload.event.url.indexOf('/msite/shop') !== -1),
@@ -30,7 +30,7 @@ export class CartEffect {
       map(d => new GetAllCartItemSucess(d)),
       catchError(e => of(new GetAllCartItemFail(e)))
     )),
-  );
+  ), { dispatch: true });
 
   // @Effect() getAll$: Observable<Action> = this.actions$.pipe(
   //     ofType<GetAllCartItem>(CartActionTypes.GET_ALL_CART_ITEMS),
@@ -41,16 +41,16 @@ export class CartEffect {
   //     ))
   // );
 
-  @Effect() add$: Observable<Action> = this.actions$.pipe(
+   add$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType<AddCartItem>(CartActionTypes.ADD_CART_ITEM),
     map(action => action.item),
     mergeMap(item => this.cartService.addOneAndGetAll(item).pipe(
       map(d => new GetAllCartItemSucess(d)),
       catchError(e => of(new AddCartItemFail(e)))
     ))
-  );
+  ));
 
-  @Effect() delete$: Observable<Action> = this.actions$.pipe(
+   delete$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType<RemoveCartItem>(CartActionTypes.REMOVE_CART_ITEM),
     map(action => action.id),
     withLatestFrom(this.store$.pipe(select(fromOrder.getShopId))),
@@ -58,9 +58,9 @@ export class CartEffect {
       map(d => new GetAllCartItemSucess(d)),
       catchError(e => of(new RemoveCartItemFail(e)))
     ))
-  );
+  ));
 
-  @Effect() clearAll$: Observable<Action> = this.actions$.pipe(
+   clearAll$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType<ClearAllCartItem>(CartActionTypes.CLEAR_ALL_CART_ITEMS),
     // map(action => action.shopId),
     withLatestFrom(this.store$.pipe(select(fromOrder.getShopId))),
@@ -68,7 +68,7 @@ export class CartEffect {
       map(() => new ClearAllCartItemSucess()),
       catchError(e => of(new ClearAllCartItemFail(e)))
     ))
-  );
+  ));
 
 }
 
