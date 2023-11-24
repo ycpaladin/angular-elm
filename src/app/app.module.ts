@@ -40,6 +40,7 @@ import { PositionEffect } from './core/effects/position.effect';
     StoreDevtoolsModule.instrument({
       maxAge: 20,
       name: 'elm store'
+      , connectInZone: true
     })
   ],
   providers: [],

@@ -3,7 +3,8 @@
   "version": 1,
   "newProjectRoot": "projects",
   "cli": {
-    "packageManager": "yarn"
+    "packageManager": "yarn",
+    "analytics": false
   },
   "projects": {
     "angular-elm": {
@@ -73,18 +74,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-elm:build"
+            "buildTarget": "angular-elm:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-elm:build:production"
+              "buildTarget": "angular-elm:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-elm:build"
+            "buildTarget": "angular-elm:build"
           }
         },
         "test": {
